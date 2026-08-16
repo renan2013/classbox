@@ -1,0 +1,45 @@
+# Ignorar dependencias de Composer y Node
+vendor/
+node_modules/
+classbox_laravel/vendor/
+classbox_laravel/node_modules/
+web_site_laravel/vendor/
+web_site_laravel/node_modules/
+
+# Archivos de entorno (.env)
+.env
+.env.backup
+.env.production
+classbox_laravel/.env
+web_site_laravel/.env
+
+# Storage logs y caché
+classbox_laravel/storage/logs/*
+!classbox_laravel/storage/logs/.gitignore
+classbox_laravel/storage/framework/cache/*
+!classbox_laravel/storage/framework/cache/.gitignore
+classbox_laravel/storage/framework/sessions/*
+!classbox_laravel/storage/framework/sessions/.gitignore
+classbox_laravel/storage/framework/views/*
+!classbox_laravel/storage/framework/views/.gitignore
+
+web_site_laravel/storage/logs/*
+!web_site_laravel/storage/logs/.gitignore
+web_site_laravel/storage/framework/cache/*
+!web_site_laravel/storage/framework/cache/.gitignore
+web_site_laravel/storage/framework/sessions/*
+!web_site_laravel/storage/framework/sessions/.gitignore
+web_site_laravel/storage/framework/views/*
+!web_site_laravel/storage/framework/views/.gitignore
+
+# Legacy PHP puro (opcional)
+classbox/
+web_site/
+
+# Sistema y IDE
+.DS_Store
+Thumbs.db
+*.log
+.gemini/
+.idea/
+.vscode/
