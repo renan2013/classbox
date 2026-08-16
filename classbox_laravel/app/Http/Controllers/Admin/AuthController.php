@@ -24,12 +24,22 @@ class AuthController extends Controller
             'password' => 'required|string',
         ]);
 
+        $loginInput = $request->username;
+        $fieldType = filter_var($loginInput, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+
         $credentials = [
-            'username' => $request->username,
+            $fieldType => $loginInput,
             'password' => $request->password,
         ];
 
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
+            $request->session()->regenerate();
+            return redirect()->intended(route('admin.dashboard'))->with('success', '¡Bienvenido al panel de administración!');
+        }
+
+        // Intento cruzado si el usuario escribió email en campo username o viceversa
+        $altField = ($fieldType === 'username') ? 'email' : 'username';
+        if (Auth::attempt([$altField => $loginInput, 'password' => $request->password], $request->boolean('remember'))) {
             $request->session()->regenerate();
             return redirect()->intended(route('admin.dashboard'))->with('success', '¡Bienvenido al panel de administración!');
         }
