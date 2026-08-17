@@ -272,7 +272,8 @@
                             if (str_starts_with($rawUrl, 'http://') || str_starts_with($rawUrl, 'https://') || $rawUrl === '#') {
                                 $resolvedUrl = $rawUrl;
                             } else {
-                                $resolvedUrl = url('/' . ltrim($rawUrl, '/'));
+                                $base = rtrim(request()->getBaseUrl(), '/');
+                                $resolvedUrl = request()->getSchemeAndHttpHost() . $base . '/' . ltrim($rawUrl, '/');
                             }
                             $cleanPath = ltrim($rawUrl, '/');
                             $isActive = (request()->url() === $resolvedUrl || ($cleanPath !== '' && request()->is($cleanPath)) || ($cleanPath === '' && request()->is('/')));
@@ -287,7 +288,8 @@
                                             if (str_starts_with($childRawUrl, 'http://') || str_starts_with($childRawUrl, 'https://') || $childRawUrl === '#') {
                                                 $childResolvedUrl = $childRawUrl;
                                             } else {
-                                                $childResolvedUrl = url('/' . ltrim($childRawUrl, '/'));
+                                                $childBase = rtrim(request()->getBaseUrl(), '/');
+                                                $childResolvedUrl = request()->getSchemeAndHttpHost() . $childBase . '/' . ltrim($childRawUrl, '/');
                                             }
                                             $childTarget = ($child->target === '_blank') ? 'target="_blank"' : '';
                                         @endphp
