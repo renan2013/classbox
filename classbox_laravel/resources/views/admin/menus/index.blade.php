@@ -46,13 +46,13 @@
                 <span class="text-[11px] text-teal-600 font-medium">Nuevo elemento</span>
             </div>
 
-            <!-- Selector Rápido de Destino -->
+            <!-- Selector Rápido de Destino Opcional -->
             <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
                 <label class="block text-[11px] font-bold text-slate-700">
-                    ⚡ Autocompletar con Página del Sitio:
+                    ⚡ Opcional: Vincular a Página / Categoría existente:
                 </label>
                 <select id="quickLinkSelector" onchange="applyQuickLink(this)" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs text-slate-800 focus:ring-2 focus:ring-teal-500">
-                    <option value="">-- Seleccionar destino rápido --</option>
+                    <option value="">-- Usar página HTML propia o elegir existente --</option>
                     
                     <optgroup label="🏠 Páginas del Sistema">
                         <option data-title="Inicio" data-url="/">Inicio (/)</option>
@@ -84,21 +84,38 @@
                         <option data-title="Menú Desplegable" data-url="#">Menú contenedor sin enlace (#)</option>
                     </optgroup>
                 </select>
-                <p class="text-[10px] text-slate-400">Al seleccionar una opción se completarán automáticamente el Título y la URL.</p>
+                <p class="text-[10px] text-slate-400">Si dejas esto en blanco, se creará una nueva página con el título que escribas abajo.</p>
             </div>
 
             <form action="{{ route('admin.menus.store') }}" method="POST" class="space-y-4">
                 @csrf
                 <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Título del Enlace *</label>
-                    <input type="text" name="title" id="menuTitle" required placeholder="Ej: Quiénes Somos, Cursos..." 
-                           class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 focus:ring-2 focus:ring-teal-500 focus:bg-white transition">
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Título del Enlace / Menú *</label>
+                    <input type="text" name="title" id="menuTitle" required placeholder="Ej: Servicios Especiales, Convenios..." 
+                           class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 focus:ring-2 focus:ring-teal-500 focus:bg-white transition font-medium">
                 </div>
 
                 <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">URL / Enlace *</label>
-                    <input type="text" name="url" id="menuUrl" required placeholder="Ej: /quienes-somos o https://..." 
+                    <div class="flex items-center justify-between mb-1">
+                        <label class="block text-xs font-semibold text-slate-700">URL / Enlace Predeterminado</label>
+                        <span class="text-[10px] text-teal-600 font-medium">Auto-generado</span>
+                    </div>
+                    <input type="text" name="url" id="menuUrl" placeholder="Ej: /pagina/mi-menu o https://..." 
                            class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 focus:ring-2 focus:ring-teal-500 focus:bg-white transition font-mono">
+                    <span class="block text-[10px] text-slate-400 mt-1">Se genera automáticamente como <code class="text-teal-600 font-mono">/pagina/{slug}</code> o puedes cambiarlo por cualquier link.</span>
+                </div>
+
+                <!-- Campo para escribir o pegar HTML -->
+                <div class="p-3.5 bg-slate-50/75 border border-slate-200 rounded-xl space-y-2">
+                    <div class="flex items-center justify-between">
+                        <label class="block text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                            <i class="fa-solid fa-code text-teal-600 text-xs"></i> Contenido HTML de la Página:
+                        </label>
+                        <span class="text-[10px] bg-teal-100 text-teal-800 px-2 py-0.5 rounded font-semibold">Pega tu HTML</span>
+                    </div>
+                    <textarea name="page_content" id="page_content" rows="6" placeholder="<p>Escribe o pega aquí el código HTML que se publicará en esta página...</p>"
+                              class="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs text-slate-800 font-mono focus:ring-2 focus:ring-teal-500 focus:bg-white transition"></textarea>
+                    <p class="text-[10px] text-slate-500">Puedes pegar código HTML, textos, tablas o imágenes. Se publicará manteniendo el diseño y estilo completo del sitio web.</p>
                 </div>
 
                 <div>
@@ -129,7 +146,7 @@
 
                 <button type="submit" class="w-full py-3 bg-teal-600 hover:bg-teal-700 text-white rounded-xl text-xs font-bold shadow-lg shadow-teal-600/20 transition flex items-center justify-center gap-2">
                     <i class="fa-solid fa-plus"></i>
-                    <span>Agregar al Menú</span>
+                    <span>Guardar y Agregar al Menú</span>
                 </button>
             </form>
         </div>
@@ -281,6 +298,28 @@
 </div>
 
 <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const titleInput = document.getElementById('menuTitle');
+    const urlInput = document.getElementById('menuUrl');
+    let userEditedUrl = false;
+
+    urlInput.addEventListener('input', function() {
+        userEditedUrl = true;
+    });
+
+    titleInput.addEventListener('input', function() {
+        if (!userEditedUrl) {
+            const slug = titleInput.value
+                .toLowerCase()
+                .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                .replace(/[^a-z0-9 -]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-');
+            urlInput.value = slug ? ('/pagina/' + slug) : '';
+        }
+    });
+});
+
 function applyQuickLink(select) {
     const option = select.options[select.selectedIndex];
     if (!option || !option.value) return;
@@ -292,7 +331,8 @@ function applyQuickLink(select) {
         document.getElementById('menuTitle').value = title;
     }
     if (url) {
-        document.getElementById('menuUrl').value = url;
+        const urlInput = document.getElementById('menuUrl');
+        urlInput.value = url;
     }
 }
 </script>

@@ -76,6 +76,20 @@
                 <label class="block text-xs font-semibold text-slate-700 mb-1">URL / Enlace *</label>
                 <input type="text" name="url" id="menuUrl" value="{{ old('url', $menu->url) }}" required 
                        class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 focus:ring-2 focus:ring-teal-500 focus:bg-white transition font-mono">
+                <span class="block text-[10px] text-slate-400 mt-1">Si apunta a <code class="text-teal-600 font-mono">/pagina/{slug}</code>, puedes editar su HTML justo abajo.</span>
+            </div>
+
+            <!-- Campo de Contenido HTML para esta Página -->
+            <div class="p-4 bg-slate-50/75 border border-slate-200 rounded-xl space-y-2">
+                <div class="flex items-center justify-between">
+                    <label class="block text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                        <i class="fa-solid fa-code text-teal-600 text-xs"></i> Contenido HTML de la Página:
+                    </label>
+                    <span class="text-[10px] bg-teal-100 text-teal-800 px-2 py-0.5 rounded font-semibold">Editar HTML</span>
+                </div>
+                <textarea name="page_content" id="page_content" rows="8" placeholder="<p>Escribe o pega aquí el código HTML para esta página...</p>"
+                          class="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-lg text-xs text-slate-800 font-mono focus:ring-2 focus:ring-teal-500 transition leading-relaxed">{{ old('page_content', $pageContent) }}</textarea>
+                <p class="text-[10px] text-slate-500">Puedes escribir o pegar cualquier estructura HTML. El contenido se mostrará dentro de la plantilla institucional del sitio.</p>
             </div>
 
             <div>
@@ -108,7 +122,7 @@
             <div class="flex items-center gap-3 pt-3">
                 <button type="submit" class="flex-1 py-3 bg-teal-600 hover:bg-teal-700 text-white rounded-xl text-xs font-bold shadow-lg shadow-teal-600/20 transition flex items-center justify-center gap-2">
                     <i class="fa-solid fa-floppy-disk"></i>
-                    <span>Guardar Cambios</span>
+                    <span>Guardar Cambios y HTML</span>
                 </button>
                 <a href="{{ route('admin.menus.index') }}" class="px-5 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition">
                     Cancelar

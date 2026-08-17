@@ -33,21 +33,54 @@ class MenuController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:100',
-            'url' => 'required|string|max:255',
+            'url' => 'nullable|string|max:255',
             'display_order' => 'nullable|integer',
             'parent_id' => 'nullable|exists:menus,id',
             'target' => 'nullable|string|in:_self,_blank',
+            'page_content' => 'nullable|string',
         ]);
 
+        $url = trim($request->url ?? '');
+        $title = trim($request->title);
+        $hasContent = $request->filled('page_content');
+
+        // Si se ingresó contenido HTML o la URL apunta a /pagina/... o se dejó vacía para auto-generar
+        if ($hasContent || empty($url) || str_starts_with($url, '/pagina/')) {
+            $slug = \Illuminate\Support\Str::slug($title);
+            if (!empty($url) && str_starts_with($url, '/pagina/')) {
+                $customSlug = ltrim(str_replace('/pagina/', '', $url), '/');
+                if (!empty($customSlug)) {
+                    $slug = $customSlug;
+                }
+            }
+            if (empty($slug)) {
+                $slug = 'pagina-' . time();
+            }
+
+            // Crear o actualizar la página con el HTML
+            Page::updateOrCreate(
+                ['slug' => $slug],
+                [
+                    'title' => $title,
+                    'content' => $request->page_content ?? '',
+                    'is_published' => true,
+                    'user_id' => auth()->id() ?? 1,
+                ]
+            );
+
+            $url = '/pagina/' . $slug;
+        }
+
         Menu::create([
-            'title' => $request->title,
-            'url' => $request->url,
+            'title' => $title,
+            'url' => $url ?: '/',
             'display_order' => $request->display_order ?? 0,
             'parent_id' => $request->parent_id,
             'target' => $request->target ?? '_self',
+            'is_active' => true,
         ]);
 
-        return back()->with('success', 'Elemento de menú creado exitosamente.');
+        return back()->with('success', 'Elemento de menú y su página creados exitosamente.');
     }
 
     public function edit($id)
@@ -57,7 +90,15 @@ class MenuController extends Controller
         $custom_pages = Page::where('is_published', true)->orderBy('title', 'asc')->get();
         $categories = Category::orderBy('name', 'asc')->get();
 
-        return view('admin.menus.edit', compact('menu', 'all_parents', 'custom_pages', 'categories'));
+        // Buscar contenido HTML de la página si es una página dinámica
+        $pageContent = null;
+        if (str_starts_with($menu->url, '/pagina/')) {
+            $slug = ltrim(str_replace('/pagina/', '', $menu->url), '/');
+            $page = Page::where('slug', $slug)->first();
+            $pageContent = $page?->content;
+        }
+
+        return view('admin.menus.edit', compact('menu', 'all_parents', 'custom_pages', 'categories', 'pageContent'));
     }
 
     public function update(Request $request, $id)
@@ -66,22 +107,53 @@ class MenuController extends Controller
 
         $request->validate([
             'title' => 'required|string|max:100',
-            'url' => 'required|string|max:255',
+            'url' => 'nullable|string|max:255',
             'display_order' => 'nullable|integer',
             'parent_id' => 'nullable|exists:menus,id',
             'target' => 'nullable|string|in:_self,_blank',
+            'page_content' => 'nullable|string',
         ]);
 
+        $url = trim($request->url ?? '');
+        $title = trim($request->title);
+        $hasContent = $request->has('page_content');
+
+        if ($hasContent || str_starts_with($url, '/pagina/') || empty($url)) {
+            $slug = \Illuminate\Support\Str::slug($title);
+            if (!empty($url) && str_starts_with($url, '/pagina/')) {
+                $customSlug = ltrim(str_replace('/pagina/', '', $url), '/');
+                if (!empty($customSlug)) {
+                    $slug = $customSlug;
+                }
+            }
+            if (empty($slug)) {
+                $slug = 'pagina-' . time();
+            }
+
+            if ($hasContent) {
+                Page::updateOrCreate(
+                    ['slug' => $slug],
+                    [
+                        'title' => $title,
+                        'content' => $request->page_content ?? '',
+                        'is_published' => true,
+                        'user_id' => auth()->id() ?? 1,
+                    ]
+                );
+                $url = '/pagina/' . $slug;
+            }
+        }
+
         $menu->update([
-            'title' => $request->title,
-            'url' => $request->url,
+            'title' => $title,
+            'url' => $url ?: '/',
             'display_order' => $request->display_order ?? 0,
             'parent_id' => $request->parent_id,
             'target' => $request->target ?? '_self',
             'is_active' => $request->has('is_active') ? $request->boolean('is_active') : $menu->is_active,
         ]);
 
-        return redirect()->route('admin.menus.index')->with('success', 'Menú actualizado exitosamente.');
+        return redirect()->route('admin.menus.index')->with('success', 'Menú y contenido de página actualizados exitosamente.');
     }
 
     public function toggleStatus($id)
