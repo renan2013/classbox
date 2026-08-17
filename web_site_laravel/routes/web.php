@@ -30,3 +30,18 @@ Route::get('/testimonios', [PageController::class, 'testimonials'])->name('site.
 // Contacto & Admisión
 Route::get('/contacto', [ContactController::class, 'index'])->name('site.contact');
 Route::post('/contacto', [ContactController::class, 'submit'])->name('site.contact.submit');
+
+// Ruta nativa para servir archivos de storage subidos desde el CMS sin depender de symlinks
+Route::get('storage/{path}', function ($path) {
+    $filePath = storage_path('app/public/' . $path);
+    if (!file_exists($filePath)) {
+        // Buscar en la carpeta de almacenamiento de classbox_laravel
+        $altPath = base_path('../classbox_laravel/storage/app/public/' . $path);
+        if (file_exists($altPath)) {
+            $filePath = $altPath;
+        } else {
+            abort(404);
+        }
+    }
+    return response()->file($filePath);
+})->where('path', '.*');
