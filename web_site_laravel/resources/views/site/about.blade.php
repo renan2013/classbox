@@ -27,9 +27,8 @@
             </div>
             <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
                 <h6 class="section-title bg-white text-start text-primary pe-3">Nuestra Institución</h6>
-                <h1 class="mb-4">Bienvenido a CEFI</h1>
-                <p class="mb-4">El <strong>Centro de Formación Integral (CEFI)</strong> es una institución líder en educación técnica y capacitación continua en Costa Rica, orientada a dotar a nuestros estudiantes de competencias reales para el empleo.</p>
-                <p class="mb-4">A través de metodologías ágiles, plataformas virtuales interactivas y docentes con sólida trayectoria en sus industrias, formamos profesionales capacitados para afrontar los desafíos del mundo laboral actual.</p>
+                <h1 class="mb-4">Bienvenido a {{ $client_data->company_name ?? 'Nuestra Institución' }}</h1>
+                <p class="mb-4">{{ $client_data->meta_description ?? 'Somos una institución orientada a brindar la mejor experiencia y excelencia a nuestros clientes y estudiantes.' }}</p>
                 <div class="row gy-2 gx-4 mb-4">
                     <div class="col-sm-6">
                         <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Instructores Especializados</p>

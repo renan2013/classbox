@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $graduacion->title . ' - CEFI')
+@section('title', $graduacion->title . ' - ' . ($client_data->company_name ?? 'Classbox'))
 
 @section('content')
 <!-- Breadcrumb Start -->

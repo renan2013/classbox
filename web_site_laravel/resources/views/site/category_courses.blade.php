@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $category->name . ' - CEFI')
+@section('title', $category->name . ' - ' . ($client_data->company_name ?? 'Classbox'))
 
 @section('content')
 <!-- Courses Grid Start -->

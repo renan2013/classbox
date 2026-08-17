@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $post->title . ' - CEFI')
+@section('title', $post->title . ' - ' . ($client_data->company_name ?? 'Classbox'))
 
 @section('content')
 <!-- Breadcrumb Start -->

@@ -13,6 +13,10 @@ class PageController extends Controller
     public function about()
     {
         $client_data = ClientData::first();
+        $page = Page::whereIn('slug', ['quienes-somos', 'sobre-nosotros', 'about'])->where('is_published', true)->first();
+        if ($page) {
+            return view('site.page', compact('page', 'client_data'));
+        }
         return view('site.about', compact('client_data'));
     }
 
