@@ -19,13 +19,13 @@
             $primary = $client_data->primary_color ?? '#06BBCC';
             switch ($style) {
                 case 'none':
-                    return 'background: transparent;';
+                    return 'background: transparent !important;';
                 case 'bottom_gradient':
-                    return 'background: linear-gradient(to top, rgba(15, 23, 42, 0.90) 0%, rgba(15, 23, 42, 0.50) 45%, rgba(15, 23, 42, 0.05) 80%, transparent 100%);';
+                    return 'background: linear-gradient(to top, rgba(15, 23, 42, 0.90) 0%, rgba(15, 23, 42, 0.50) 45%, rgba(15, 23, 42, 0.05) 80%, transparent 100%) !important;';
                 case 'left_gradient':
-                    return 'background: linear-gradient(to right, rgba(15, 23, 42, 0.90) 0%, rgba(15, 23, 42, 0.55) 50%, rgba(15, 23, 42, 0.08) 80%, transparent 100%);';
+                    return 'background: linear-gradient(to right, rgba(15, 23, 42, 0.90) 0%, rgba(15, 23, 42, 0.55) 50%, rgba(15, 23, 42, 0.08) 80%, transparent 100%) !important;';
                 case 'glass_card':
-                    return 'background: transparent;';
+                    return 'background: transparent !important;';
                 case 'brand_tint':
                     $hex = str_replace('#', '', $primary);
                     if(strlen($hex) == 3) {
@@ -37,10 +37,10 @@
                         $g = hexdec(substr($hex, 2, 2) ?: '187');
                         $b = hexdec(substr($hex, 4, 2) ?: '204');
                     }
-                    return "background: linear-gradient(135deg, rgba($r, $g, $b, 0.6) 0%, rgba(15, 23, 42, 0.82) 100%);";
+                    return "background: linear-gradient(135deg, rgba($r, $g, $b, 0.6) 0%, rgba(15, 23, 42, 0.82) 100%) !important;";
                 case 'full_dark':
                 default:
-                    return 'background: rgba(15, 23, 42, 0.6);';
+                    return 'background: rgba(15, 23, 42, 0.6) !important;';
             }
         }
     }
