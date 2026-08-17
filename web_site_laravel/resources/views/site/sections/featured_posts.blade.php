@@ -12,28 +12,57 @@
             @endphp
             @foreach($displayPosts as $post)
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="course-item bg-light shadow-sm rounded h-100 d-flex flex-column justify-content-between overflow-hidden">
+                    <div class="card h-100 border-0 shadow-sm course-card-premium overflow-hidden d-flex flex-column justify-content-between">
                         <div>
-                            <div class="position-relative overflow-hidden w-100" style="height: 220px; background-color: #f1f5f9;">
-                                @if($post->main_image)
-                                    <img class="w-100 h-100" src="{{ asset('storage/' . $post->main_image) }}" alt="{{ $post->title }}" style="height: 220px; width: 100%; object-fit: cover; object-position: center; display: block;">
-                                @else
-                                    <div class="w-100 h-100 bg-secondary text-white d-flex align-items-center justify-content-center" style="height: 220px;">
-                                        <i class="fa fa-book fa-3x"></i>
-                                    </div>
-                                @endif
-                                <div class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-3" style="z-index: 2;">
-                                    <a href="{{ route('site.course.show', $post->id) }}" class="flex-shrink-0 btn btn-sm btn-primary px-3 border-end shadow-sm" style="border-radius: 30px 0 0 30px;">Ver Programa</a>
-                                    <a href="{{ route('site.contact') }}" class="flex-shrink-0 btn btn-sm btn-primary px-3 shadow-sm" style="border-radius: 0 30px 30px 0;">Matricular</a>
+                            <!-- Header de Imagen con Badge Flotante -->
+                            <div class="position-relative overflow-hidden course-img-wrapper" style="height: 220px; background: #f8fafc;">
+                                <a href="{{ route('site.course.show', $post->id) }}" class="d-block w-100 h-100">
+                                    @if($post->main_image)
+                                        <img class="w-100 h-100 course-img" src="{{ asset('storage/' . $post->main_image) }}" alt="{{ $post->title }}">
+                                    @else
+                                        <div class="w-100 h-100 bg-secondary text-white d-flex align-items-center justify-content-center">
+                                            <i class="fa fa-book-open fa-3x opacity-50"></i>
+                                        </div>
+                                    @endif
+                                </a>
+                                <!-- Floating Badge -->
+                                <div class="position-absolute top-0 start-0 m-3 z-index-2">
+                                    <span class="badge bg-white text-dark shadow-sm px-3 py-2 rounded-pill fw-semibold border" style="font-size: 0.78rem;">
+                                        <i class="fa fa-graduation-cap text-primary me-1"></i> {{ $post->category->name ?? 'General' }}
+                                    </span>
                                 </div>
                             </div>
+
+                            <!-- Contenido del Curso -->
                             <div class="p-4">
-                                <div class="mb-2">
-                                    <small class="badge bg-primary px-2 py-1">{{ $post->category->name ?? 'General' }}</small>
+                                <h5 class="course-card-title mb-2">
+                                    <a href="{{ route('site.course.show', $post->id) }}" class="text-dark text-decoration-none hover-primary">
+                                        {{ $post->title }}
+                                    </a>
+                                </h5>
+                                <p class="text-muted small course-card-desc mb-3">
+                                    {{ Str::limit($post->synopsis ?: strip_tags($post->content), 100) }}
+                                </p>
+
+                                <div class="d-flex align-items-center text-muted small pt-2 border-top">
+                                    <span class="d-inline-flex align-items-center me-3">
+                                        <i class="fa fa-user-tie text-primary me-1"></i> {{ $post->instructor_name ?: 'CEFI Docentes' }}
+                                    </span>
+                                    <span class="d-inline-flex align-items-center ms-auto text-primary fw-semibold">
+                                        <i class="fa fa-certificate me-1"></i> Certificado
+                                    </span>
                                 </div>
-                                <h5 class="mb-2 text-dark">{{ $post->title }}</h5>
-                                <p class="text-muted small mb-0">{{ Str::limit($post->synopsis, 100) }}</p>
                             </div>
+                        </div>
+
+                        <!-- Footer con Botones de Acción -->
+                        <div class="card-footer bg-light px-4 py-3 border-top-0 d-flex justify-content-between align-items-center gap-2">
+                            <a href="{{ route('site.course.show', $post->id) }}" class="btn btn-sm btn-outline-primary rounded-pill px-3 py-2 fw-medium flex-fill text-center">
+                                Ver Programa <i class="fa fa-arrow-right ms-1 text-xs"></i>
+                            </a>
+                            <a href="https://wa.me/50687220999?text=Hola,%20deseo%20matricular%20el%20curso:%20{{ urlencode($post->title) }}" target="_blank" class="btn btn-sm btn-primary rounded-pill px-3 py-2 fw-medium flex-fill text-center text-white">
+                                <i class="fab fa-whatsapp me-1"></i> Matricular
+                            </a>
                         </div>
                     </div>
                 </div>
