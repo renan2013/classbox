@@ -1,9 +1,9 @@
 <!-- Modular Section: Portafolio de Trabajos -->
-<div class="container-xxl py-5" id="portfolio-section">
+<div class="container-xxl py-4 py-md-4" id="portfolio-section">
     <div class="container">
         <!-- Section Header -->
-        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-            <h1 class="mb-3 text-dark fw-bold" style="font-size: 2.3rem;">{{ $section->title ?: 'Portafolio de Trabajos' }}</h1>
+        <div class="text-center wow fadeInUp mb-4" data-wow-delay="0.1s">
+            <h1 class="mb-2 text-dark fw-bold" style="font-size: 2.2rem;">{{ $section->title ?: 'Portafolio de Trabajos' }}</h1>
             @if($section->subtitle)
                 <p class="text-muted mx-auto mb-4" style="max-width: 750px; font-size: 0.95rem; line-height: 1.6;">
                     {{ $section->subtitle }}

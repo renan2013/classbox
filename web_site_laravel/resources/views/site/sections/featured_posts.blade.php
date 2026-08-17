@@ -1,9 +1,9 @@
 <!-- Modular Section: Featured Posts / Courses -->
-<div class="container-xxl py-5">
+<div class="container-xxl py-4 py-md-4">
     <div class="container">
-        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-            <h6 class="section-title bg-white text-center text-primary px-3">{{ $section->subtitle ?? 'Cursos Populares' }}</h6>
-            <h1 class="mb-5">{{ $section->title ?? 'Programas Destacados' }}</h1>
+        <div class="text-center wow fadeInUp mb-4" data-wow-delay="0.1s">
+            <h6 class="section-title bg-white text-center text-primary px-3 mb-2">{{ $section->subtitle ?? 'Cursos Populares' }}</h6>
+            <h1 class="mb-0">{{ $section->title ?? 'Programas Destacados' }}</h1>
         </div>
         <div class="row g-4 justify-content-center">
             @php

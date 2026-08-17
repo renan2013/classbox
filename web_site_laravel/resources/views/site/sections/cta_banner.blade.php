@@ -1,5 +1,5 @@
 <!-- Modular Section: CTA Banner -->
-<div class="container-xxl py-5">
+<div class="container-xxl py-4 py-md-4">
     <div class="container">
         <div class="bg-primary text-white rounded-3 p-5 shadow-lg position-relative overflow-hidden" style="background: linear-gradient(135deg, #06BBCC 0%, #034870 100%);">
             <div class="row align-items-center justify-content-between">

@@ -141,7 +141,7 @@
 @endphp
 
 <!-- Modular Section: Carousel / Slider -->
-<div class="container-fluid p-0 mb-5">
+<div class="container-fluid p-0 mb-3 mb-md-4">
     <div class="owl-carousel header-carousel position-relative">
         @if($hasCustomBanners)
             {{-- Banners generales --}}

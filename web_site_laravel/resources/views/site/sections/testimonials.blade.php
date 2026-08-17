@@ -1,10 +1,10 @@
 <!-- Modular Section: Testimonials -->
 @if($testimonios->isNotEmpty())
-<div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+<div class="container-xxl py-4 py-md-4 wow fadeInUp" data-wow-delay="0.1s">
     <div class="container">
-        <div class="text-center">
-            <h6 class="section-title bg-white text-center text-primary px-3">{{ $section->subtitle ?? 'Testimonios' }}</h6>
-            <h1 class="mb-5">{{ $section->title ?? 'Lo Que Dicen Nuestros Estudiantes' }}</h1>
+        <div class="text-center mb-4">
+            <h6 class="section-title bg-white text-center text-primary px-3 mb-2">{{ $section->subtitle ?? 'Testimonios' }}</h6>
+            <h1 class="mb-0">{{ $section->title ?? 'Lo Que Dicen Nuestros Estudiantes' }}</h1>
         </div>
         <div class="owl-carousel testimonial-carousel position-relative">
             @php

@@ -24,15 +24,15 @@
 @endphp
 
 <!-- Modular Section: Custom Content / HTML -->
-<div class="container-xxl py-5">
+<div class="container-xxl py-4 py-md-4">
     <div class="container">
         @if($section->title || $section->subtitle)
-            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <div class="text-center wow fadeInUp mb-4" data-wow-delay="0.1s">
                 @if($section->subtitle)
-                    <h6 class="section-title bg-white text-center text-primary px-3">{{ $section->subtitle }}</h6>
+                    <h6 class="section-title bg-white text-center text-primary px-3 mb-2">{{ $section->subtitle }}</h6>
                 @endif
                 @if($section->title)
-                    <h1 class="mb-5">{{ $section->title }}</h1>
+                    <h1 class="mb-0">{{ $section->title }}</h1>
                 @endif
             </div>
         @endif
