@@ -21,12 +21,12 @@
                 case 'none':
                     return 'background: transparent !important;';
                 case 'bottom_gradient_soft':
-                    return 'background: linear-gradient(to top, rgba(15, 23, 42, 0.45) 0%, rgba(15, 23, 42, 0.18) 35%, transparent 70%) !important;';
+                    return 'background: linear-gradient(to top, rgba(15, 23, 42, 0.45) 0%, rgba(15, 23, 42, 0.18) 25%, transparent 50%) !important;';
                 case 'bottom_gradient':
                 case 'bottom_gradient_medium':
-                    return 'background: linear-gradient(to top, rgba(15, 23, 42, 0.78) 0%, rgba(15, 23, 42, 0.38) 45%, rgba(15, 23, 42, 0.05) 80%, transparent 100%) !important;';
+                    return 'background: linear-gradient(to top, rgba(15, 23, 42, 0.78) 0%, rgba(15, 23, 42, 0.35) 28%, transparent 50%) !important;';
                 case 'bottom_gradient_strong':
-                    return 'background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.65) 55%, rgba(15, 23, 42, 0.15) 85%, transparent 100%) !important;';
+                    return 'background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.55) 30%, transparent 50%) !important;';
                 case 'left_gradient':
                     return 'background: linear-gradient(to right, rgba(15, 23, 42, 0.90) 0%, rgba(15, 23, 42, 0.55) 50%, rgba(15, 23, 42, 0.08) 80%, transparent 100%) !important;';
                 case 'glass_card':

@@ -89,25 +89,25 @@
                         <!-- 2. Gradiente Suave (Nivel 1) -->
                         <label class="relative flex flex-col p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white cursor-pointer transition text-center group has-[:checked]:border-teal-500 has-[:checked]:bg-teal-50/40 has-[:checked]:ring-2 has-[:checked]:ring-teal-500/20">
                             <input type="radio" name="overlay_style" value="bottom_gradient_soft" {{ old('overlay_style') == 'bottom_gradient_soft' ? 'checked' : '' }} class="sr-only">
-                            <div class="h-10 w-full rounded-lg bg-gradient-to-t from-slate-900/40 via-transparent to-transparent mb-2 flex items-end justify-center pb-1 text-white text-[9px] font-bold shadow-inner">Suave (35%)</div>
+                            <div class="h-10 w-full rounded-lg bg-gradient-to-t from-slate-900/45 via-slate-900/20 to-transparent mb-2 flex items-end justify-center pb-1 text-white text-[9px] font-bold shadow-inner">Suave (50% alt)</div>
                             <span class="text-xs font-bold text-slate-800">Grad. Suave</span>
-                            <span class="text-[10px] text-slate-400">Sombra ligera</span>
+                            <span class="text-[10px] text-slate-400">50% inf. (35%)</span>
                         </label>
 
                         <!-- 3. Gradiente Medio (Nivel 2) -->
                         <label class="relative flex flex-col p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white cursor-pointer transition text-center group has-[:checked]:border-teal-500 has-[:checked]:bg-teal-50/40 has-[:checked]:ring-2 has-[:checked]:ring-teal-500/20">
                             <input type="radio" name="overlay_style" value="bottom_gradient" {{ old('overlay_style', 'bottom_gradient') == 'bottom_gradient' ? 'checked' : '' }} class="sr-only">
-                            <div class="h-10 w-full rounded-lg bg-gradient-to-t from-slate-900/75 via-slate-900/35 to-transparent mb-2 flex items-end justify-center pb-1 text-white text-[9px] font-bold shadow-inner">Medio (70%)</div>
+                            <div class="h-10 w-full rounded-lg bg-gradient-to-t from-slate-900/78 via-slate-900/35 to-transparent mb-2 flex items-end justify-center pb-1 text-white text-[9px] font-bold shadow-inner">Medio (50% alt)</div>
                             <span class="text-xs font-bold text-slate-800">Grad. Medio</span>
-                            <span class="text-[10px] text-slate-400">Balance estándar</span>
+                            <span class="text-[10px] text-slate-400">50% inf. (70%)</span>
                         </label>
 
                         <!-- 4. Gradiente Fuerte (Nivel 3) -->
                         <label class="relative flex flex-col p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white cursor-pointer transition text-center group has-[:checked]:border-teal-500 has-[:checked]:bg-teal-50/40 has-[:checked]:ring-2 has-[:checked]:ring-teal-500/20">
                             <input type="radio" name="overlay_style" value="bottom_gradient_strong" {{ old('overlay_style') == 'bottom_gradient_strong' ? 'checked' : '' }} class="sr-only">
-                            <div class="h-10 w-full rounded-lg bg-gradient-to-t from-slate-950 via-slate-900/65 to-transparent mb-2 flex items-end justify-center pb-1 text-white text-[9px] font-bold shadow-inner">Fuerte (95%)</div>
+                            <div class="h-10 w-full rounded-lg bg-gradient-to-t from-slate-950 via-slate-900/60 to-transparent mb-2 flex items-end justify-center pb-1 text-white text-[9px] font-bold shadow-inner">Fuerte (50% alt)</div>
                             <span class="text-xs font-bold text-slate-800">Grad. Fuerte</span>
-                            <span class="text-[10px] text-slate-400">Alto contraste</span>
+                            <span class="text-[10px] text-slate-400">50% inf. (95%)</span>
                         </label>
 
                         <!-- 5. Gradiente Lateral -->
