@@ -592,9 +592,14 @@
                         </div>
 
                         <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Meta Descripción Global</label>
-                            <textarea name="meta_description" rows="2" placeholder="Ofrecemos formación integral con certificación profesional..."
+                            <label class="block text-xs font-semibold text-slate-700 mb-1.5">
+                                📝 Meta Descripción Global y Reseña del Pie de Página (Footer)
+                            </label>
+                            <textarea name="meta_description" rows="3" placeholder="Ej: Especialistas en desarrollo de software, diseño gráfico, robótica y capacitación profesional..."
                                       class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800">{{ old('meta_description', $client_data->meta_description) }}</textarea>
+                            <span class="block text-[11px] text-slate-400 mt-1">
+                                <i class="fa-solid fa-circle-info text-teal-600 mr-1"></i> Este texto se muestra en los resultados de búsqueda de Google y debajo del logo en el <strong>Pie de Página (Footer)</strong>.
+                            </span>
                         </div>
 
                         <div>

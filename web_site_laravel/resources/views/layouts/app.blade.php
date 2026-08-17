@@ -339,7 +339,9 @@
                     @else
                         <h4 class="text-white mb-3">Sobre {{ $client_data->company_name ?? 'CEFI' }}</h4>
                     @endif
-                    <p class="text-white-50">{{ $client_data->meta_description ?? 'Centro de Formación Integral dedicado a la excelencia académica y capacitación profesional con metodología virtual y presencial.' }}</p>
+                    @if($client_data?->meta_description)
+                        <p class="text-white-50">{{ $client_data->meta_description }}</p>
+                    @endif
                 </div>
             </div>
         </div>
