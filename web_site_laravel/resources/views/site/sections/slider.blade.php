@@ -171,7 +171,7 @@
                 <div class="owl-carousel-item position-relative">
                     <img class="img-fluid w-100" src="{{ $b->image_url }}" alt="{{ $b->title }}" style="max-height: 600px; object-fit: cover;">
                     @if($hasAnyText)
-                        <div class="position-absolute top-0 start-0 w-100 h-100 d-flex {{ $vAlignClass }}" style="{{ $overlayCss }}">
+                        <div class="position-absolute top-0 start-0 w-100 h-100 d-flex slider-mobile-overlay {{ $vAlignClass }}" style="{{ $overlayCss }}">
                             <div class="container">
                                 <div class="row {{ $alignClass }}">
                                     <div class="col-sm-10 col-lg-8">
@@ -180,22 +180,22 @@
                                         @endif
 
                                         @if($showSub)
-                                            <h5 class="text-uppercase mb-2 animated slideInDown" style="color: {{ $subColor }} !important; {{ $fontCss }} font-weight: 600; font-size: 0.95rem; letter-spacing: 1px;">
+                                            <h5 class="text-uppercase mb-2 animated slideInDown slider-mobile-badge" style="color: {{ $subColor }} !important; {{ $fontCss }} font-weight: 600; font-size: 0.95rem; letter-spacing: 1px;">
                                                 {{ $b->subtitle }}
                                             </h5>
                                         @endif
                                         @if($showTitle)
-                                            <h1 class="{{ $titleClass }} animated slideInDown mb-3" style="color: {{ $tColor }} !important; {{ $fontCss }} {{ $weightCss }} line-height: 1.25;">
+                                            <h1 class="{{ $titleClass }} animated slideInDown mb-3 slider-mobile-title" style="color: {{ $tColor }} !important; {{ $fontCss }} {{ $weightCss }} line-height: 1.25;">
                                                 {{ $b->title }}
                                             </h1>
                                         @endif
                                         @if($showBtn)
                                             @if($isTextLink)
-                                                <a href="{{ $b->button_url ?? route('site.contact') }}" class="{{ $btnClass }}" style="color: {{ $client_data->primary_color ?? '#06BBCC' }}; {{ $fontCss }} font-size: 1.1rem;">
+                                                <a href="{{ $b->button_url ?? route('site.contact') }}" class="{{ $btnClass }} slider-mobile-btn" style="color: {{ $client_data->primary_color ?? '#06BBCC' }}; {{ $fontCss }} font-size: 1.1rem;">
                                                     <span>{{ $b->button_text }}</span> <i class="fa fa-arrow-right ms-1 text-xs"></i>
                                                 </a>
                                             @else
-                                                <a href="{{ $b->button_url ?? route('site.contact') }}" class="{{ $btnClass }}">
+                                                <a href="{{ $b->button_url ?? route('site.contact') }}" class="{{ $btnClass }} slider-mobile-btn">
                                                     {{ $b->button_text }}
                                                 </a>
                                             @endif
@@ -233,7 +233,7 @@
                 <div class="owl-carousel-item position-relative">
                     <img class="img-fluid w-100" src="{{ asset('storage/' . $ps->value) }}" alt="{{ $ps->post->title ?? 'Slide' }}" style="max-height: 600px; object-fit: cover;">
                     @if($hasAnyText)
-                        <div class="position-absolute top-0 start-0 w-100 h-100 d-flex {{ $vAlignClass }}" style="{{ $overlayCss }}">
+                        <div class="position-absolute top-0 start-0 w-100 h-100 d-flex slider-mobile-overlay {{ $vAlignClass }}" style="{{ $overlayCss }}">
                             <div class="container">
                                 <div class="row {{ $alignClass }}">
                                     <div class="col-sm-10 col-lg-8">
@@ -242,22 +242,22 @@
                                         @endif
 
                                         @if($showSub)
-                                            <h5 class="text-uppercase mb-2 animated slideInDown" style="color: {{ $globalSubtitleColor }} !important; {{ $fontCss }} font-weight: 600; font-size: 0.95rem; letter-spacing: 1px;">
+                                            <h5 class="text-uppercase mb-2 animated slideInDown slider-mobile-badge" style="color: {{ $globalSubtitleColor }} !important; {{ $fontCss }} font-weight: 600; font-size: 0.95rem; letter-spacing: 1px;">
                                                 {{ $ps->post->category->name ?? 'PROGRAMA DESTACADO' }}
                                             </h5>
                                         @endif
                                         @if($showTitle)
-                                            <h1 class="{{ $titleClass }} animated slideInDown mb-3" style="color: {{ $globalTitleColor }} !important; {{ $fontCss }} {{ $weightCss }} line-height: 1.25;">
+                                            <h1 class="{{ $titleClass }} animated slideInDown mb-3 slider-mobile-title" style="color: {{ $globalTitleColor }} !important; {{ $fontCss }} {{ $weightCss }} line-height: 1.25;">
                                                 {{ $ps->post->title ?? '' }}
                                             </h1>
                                         @endif
                                         @if($showBtn)
                                             @if($isTextLink)
-                                                <a href="{{ route('site.course.show', $ps->post->id) }}" class="{{ $btnClass }}" style="color: {{ $client_data->primary_color ?? '#06BBCC' }}; {{ $fontCss }} font-size: 1.1rem;">
+                                                <a href="{{ route('site.course.show', $ps->post->id) }}" class="{{ $btnClass }} slider-mobile-btn" style="color: {{ $client_data->primary_color ?? '#06BBCC' }}; {{ $fontCss }} font-size: 1.1rem;">
                                                     <span>Ver Programa Completo</span> <i class="fa fa-arrow-right ms-1 text-xs"></i>
                                                 </a>
                                             @else
-                                                <a href="{{ route('site.course.show', $ps->post->id) }}" class="{{ $btnClass }}">
+                                                <a href="{{ route('site.course.show', $ps->post->id) }}" class="{{ $btnClass }} slider-mobile-btn">
                                                     Ver Programa Completo
                                                 </a>
                                             @endif
@@ -298,7 +298,7 @@
             <div class="owl-carousel-item position-relative">
                 <img class="img-fluid w-100" src="{{ asset('img/carousel-1.jpg') }}" alt="Educación" style="max-height: 600px; object-fit: cover;">
                 @if($hasAnyText)
-                    <div class="position-absolute top-0 start-0 w-100 h-100 d-flex {{ $vAlignClass }}" style="{{ $overlayCss }}">
+                    <div class="position-absolute top-0 start-0 w-100 h-100 d-flex slider-mobile-overlay {{ $vAlignClass }}" style="{{ $overlayCss }}">
                         <div class="container">
                             <div class="row {{ $alignClass }}">
                                 <div class="col-sm-10 col-lg-8">
@@ -307,22 +307,22 @@
                                     @endif
 
                                     @if($showSub)
-                                        <h5 class="text-uppercase mb-2 animated slideInDown" style="color: {{ $globalSubtitleColor }} !important; {{ $fontCss }} font-weight: 600; font-size: 0.95rem; letter-spacing: 1px;">
+                                        <h5 class="text-uppercase mb-2 animated slideInDown slider-mobile-badge" style="color: {{ $globalSubtitleColor }} !important; {{ $fontCss }} font-weight: 600; font-size: 0.95rem; letter-spacing: 1px;">
                                             {{ $fallbackSubtitle }}
                                         </h5>
                                     @endif
                                     @if($showTitle)
-                                        <h1 class="{{ $titleClass }} animated slideInDown mb-3" style="color: {{ $globalTitleColor }} !important; {{ $fontCss }} {{ $weightCss }} line-height: 1.25;">
+                                        <h1 class="{{ $titleClass }} animated slideInDown mb-3 slider-mobile-title" style="color: {{ $globalTitleColor }} !important; {{ $fontCss }} {{ $weightCss }} line-height: 1.25;">
                                             {{ $fallbackTitle }}
                                         </h1>
                                     @endif
                                     @if($showBtn)
                                         @if($isTextLink)
-                                            <a href="{{ $fallbackBtnUrl }}" class="{{ $btnClass }}" style="color: {{ $client_data->primary_color ?? '#06BBCC' }}; {{ $fontCss }} font-size: 1.1rem;">
+                                            <a href="{{ $fallbackBtnUrl }}" class="{{ $btnClass }} slider-mobile-btn" style="color: {{ $client_data->primary_color ?? '#06BBCC' }}; {{ $fontCss }} font-size: 1.1rem;">
                                                 <span>{{ $fallbackBtnText }}</span> <i class="fa fa-arrow-right ms-1 text-xs"></i>
                                             </a>
                                         @else
-                                            <a href="{{ $fallbackBtnUrl }}" class="{{ $btnClass }}">
+                                            <a href="{{ $fallbackBtnUrl }}" class="{{ $btnClass }} slider-mobile-btn">
                                                 {{ $fallbackBtnText }}
                                             </a>
                                         @endif
@@ -348,5 +348,71 @@
     .slider-minimal-link:hover {
         transform: translateX(4px);
         opacity: 0.85;
+    }
+
+    /* Estilo Cinemático Elegante para Móviles */
+    @media (max-width: 768px) {
+        .header-carousel .owl-carousel-item {
+            height: 480px;
+            max-height: 75vh;
+            min-height: 420px;
+        }
+
+        .header-carousel .owl-carousel-item img {
+            height: 100% !important;
+            object-fit: cover !important;
+            object-position: center 15% !important;
+        }
+
+        .header-carousel .slider-mobile-overlay {
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.10) 0%, rgba(15, 23, 42, 0.30) 40%, rgba(15, 23, 42, 0.72) 70%, rgba(15, 23, 42, 0.94) 100%) !important;
+            align-items: flex-end !important;
+            padding-bottom: 2.2rem !important;
+        }
+
+        .header-carousel .slider-mobile-badge {
+            display: inline-block !important;
+            font-size: 0.75rem !important;
+            letter-spacing: 1.5px !important;
+            text-transform: uppercase !important;
+            font-weight: 600 !important;
+            padding: 4px 14px !important;
+            border-radius: 30px !important;
+            background: rgba(255, 255, 255, 0.18) !important;
+            backdrop-filter: blur(8px) !important;
+            -webkit-backdrop-filter: blur(8px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.25) !important;
+            color: #ffffff !important;
+            margin-bottom: 10px !important;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5) !important;
+        }
+
+        .header-carousel .slider-mobile-title {
+            font-size: 1.5rem !important;
+            line-height: 1.3 !important;
+            font-weight: 700 !important;
+            color: #ffffff !important;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7) !important;
+            margin-bottom: 16px !important;
+        }
+
+        .header-carousel .slider-mobile-btn {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 8px !important;
+            padding: 10px 24px !important;
+            border-radius: 50px !important;
+            font-size: 0.92rem !important;
+            font-weight: 600 !important;
+            background-color: var(--primary) !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4) !important;
+            text-decoration: none !important;
+            border: none !important;
+            transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+        }
+        .header-carousel .slider-mobile-btn:active {
+            transform: scale(0.97);
+        }
     }
 </style>

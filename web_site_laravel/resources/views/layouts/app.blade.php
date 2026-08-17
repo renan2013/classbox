@@ -141,13 +141,6 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Slider Mobile Reset */
-        @media (max-width: 768px) {
-            .header-carousel .owl-carousel-item .position-absolute.top-0.start-0.w-100.h-100.d-flex {
-                background: transparent;
-            }
-        }
-
         /* Botón WhatsApp Flotante */
         .btn-whatsapp-float {
             position: fixed;
