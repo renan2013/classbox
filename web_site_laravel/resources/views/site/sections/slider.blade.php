@@ -174,7 +174,7 @@
                     $hasAnyText = $showSub || $showTitle || $showBtn;
                 @endphp
                 <div class="owl-carousel-item position-relative">
-                    <img class="img-fluid w-100" src="{{ $b->image_url }}" alt="{{ $b->title }}" style="max-height: 600px; object-fit: cover;">
+                    <img class="img-fluid w-100 banner-slide-img" src="{{ $b->image_url }}" alt="{{ $b->title }}">
                     @if($hasAnyText)
                         <div class="position-absolute top-0 start-0 w-100 h-100 d-flex slider-mobile-overlay {{ $vAlignClass }}" style="{{ $overlayCss }}">
                             <div class="container">
@@ -236,7 +236,7 @@
                     $hasAnyText = $showSub || $showTitle || $showBtn;
                 @endphp
                 <div class="owl-carousel-item position-relative">
-                    <img class="img-fluid w-100" src="{{ asset('storage/' . $ps->value) }}" alt="{{ $ps->post->title ?? 'Slide' }}" style="max-height: 600px; object-fit: cover;">
+                    <img class="img-fluid w-100 banner-slide-img" src="{{ asset('storage/' . $ps->value) }}" alt="{{ $ps->post->title ?? 'Slide' }}">
                     @if($hasAnyText)
                         <div class="position-absolute top-0 start-0 w-100 h-100 d-flex slider-mobile-overlay {{ $vAlignClass }}" style="{{ $overlayCss }}">
                             <div class="container">
