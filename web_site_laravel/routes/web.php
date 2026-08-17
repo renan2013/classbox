@@ -22,10 +22,11 @@ Route::get('/curso/{id}', [CourseController::class, 'show'])->name('site.course.
 Route::get('/graduaciones', [GraduacionController::class, 'index'])->name('site.graduaciones');
 Route::get('/graduacion/{id}', [GraduacionController::class, 'show'])->name('site.graduacion.show');
 
-// Páginas Institucionales
+// Páginas Institucionales & Dinámicas
 Route::get('/quienes-somos', [PageController::class, 'about'])->name('site.about');
 Route::get('/docentes', [PageController::class, 'team'])->name('site.team');
 Route::get('/testimonios', [PageController::class, 'testimonials'])->name('site.testimonials');
+Route::get('/pagina/{slug}', [PageController::class, 'show'])->name('site.page.show');
 
 // Contacto & Admisión
 Route::get('/contacto', [ContactController::class, 'index'])->name('site.contact');

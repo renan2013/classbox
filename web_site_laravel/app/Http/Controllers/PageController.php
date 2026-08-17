@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ClientData;
+use App\Models\Page;
 use App\Models\Post;
 use App\Models\Testimonio;
 use Illuminate\Http\Request;
@@ -26,4 +27,12 @@ class PageController extends Controller
         $testimonios = Testimonio::where('is_active', true)->latest()->paginate(9);
         return view('site.testimonials', compact('testimonios'));
     }
+
+    public function show($slug)
+    {
+        $page = Page::where('slug', $slug)->where('is_published', true)->firstOrFail();
+        $client_data = ClientData::first();
+        return view('site.page', compact('page', 'client_data'));
+    }
 }
+

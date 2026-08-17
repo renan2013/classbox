@@ -53,7 +53,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // Módulo: Menús
         Route::middleware('module:menus')->group(function () {
-            Route::resource('menus', MenuController::class)->except(['create', 'show', 'edit']);
+            Route::post('menus/seed-defaults', [MenuController::class, 'seedDefaults'])->name('menus.seed_defaults');
+            Route::resource('menus', MenuController::class)->except(['create', 'show']);
         });
 
         // Módulo: Datos del Cliente

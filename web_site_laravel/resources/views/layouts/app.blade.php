@@ -264,23 +264,53 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="{{ route('site.home') }}" class="nav-item nav-link {{ request()->routeIs('site.home') ? 'active' : '' }}">Inicio</a>
-                
-                <!-- Dropdown de Categorías / Escuelas -->
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Escuelas</a>
-                    <div class="dropdown-menu fade-down m-0">
-                        @foreach($categories as $cat)
-                            <a href="{{ route('site.category', $cat->id) }}" class="dropdown-item">{{ $cat->name }}</a>
-                        @endforeach
+                @if(isset($site_menus) && $site_menus->isNotEmpty())
+                    @foreach($site_menus as $menuItem)
+                        @php
+                            $targetAttr = ($menuItem->target === '_blank') ? 'target="_blank"' : '';
+                            $menuUrl = $menuItem->url;
+                            if (!str_starts_with($menuUrl, 'http') && !str_starts_with($menuUrl, '#') && !str_starts_with($menuUrl, '/')) {
+                                $menuUrl = '/' . $menuUrl;
+                            }
+                            $isActive = (request()->is(ltrim($menuUrl, '/')) || (request()->is('/') && $menuUrl === '/'));
+                        @endphp
+                        @if($menuItem->children->isNotEmpty())
+                            <div class="nav-item dropdown">
+                                <a href="{{ $menuUrl }}" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{{ $menuItem->title }}</a>
+                                <div class="dropdown-menu fade-down m-0">
+                                    @foreach($menuItem->children as $child)
+                                        @php
+                                            $childUrl = $child->url;
+                                            if (!str_starts_with($childUrl, 'http') && !str_starts_with($childUrl, '#') && !str_starts_with($childUrl, '/')) {
+                                                $childUrl = '/' . $childUrl;
+                                            }
+                                            $childTarget = ($child->target === '_blank') ? 'target="_blank"' : '';
+                                        @endphp
+                                        <a href="{{ $childUrl }}" {!! $childTarget !!} class="dropdown-item">{{ $child->title }}</a>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @else
+                            <a href="{{ $menuUrl }}" {!! $targetAttr !!} class="nav-item nav-link {{ $isActive ? 'active' : '' }}">{{ $menuItem->title }}</a>
+                        @endif
+                    @endforeach
+                @else
+                    {{-- Fallback si la tabla está vacía --}}
+                    <a href="{{ route('site.home') }}" class="nav-item nav-link {{ request()->routeIs('site.home') ? 'active' : '' }}">Inicio</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Escuelas</a>
+                        <div class="dropdown-menu fade-down m-0">
+                            @foreach($categories as $cat)
+                                <a href="{{ route('site.category', $cat->id) }}" class="dropdown-item">{{ $cat->name }}</a>
+                            @endforeach
+                        </div>
                     </div>
-                </div>
-
-                <a href="{{ route('site.graduaciones') }}" class="nav-item nav-link {{ request()->routeIs('site.graduaciones*') ? 'active' : '' }}">Graduaciones</a>
-                <a href="{{ route('site.about') }}" class="nav-item nav-link {{ request()->routeIs('site.about') ? 'active' : '' }}">Quiénes Somos</a>
-                <a href="{{ route('site.team') }}" class="nav-item nav-link {{ request()->routeIs('site.team') ? 'active' : '' }}">Docentes</a>
-                <a href="{{ route('site.testimonials') }}" class="nav-item nav-link {{ request()->routeIs('site.testimonials') ? 'active' : '' }}">Testimonios</a>
-                <a href="{{ route('site.contact') }}" class="nav-item nav-link {{ request()->routeIs('site.contact') ? 'active' : '' }}">Contacto</a>
+                    <a href="{{ route('site.graduaciones') }}" class="nav-item nav-link {{ request()->routeIs('site.graduaciones*') ? 'active' : '' }}">Graduaciones</a>
+                    <a href="{{ route('site.about') }}" class="nav-item nav-link {{ request()->routeIs('site.about') ? 'active' : '' }}">Quiénes Somos</a>
+                    <a href="{{ route('site.team') }}" class="nav-item nav-link {{ request()->routeIs('site.team') ? 'active' : '' }}">Docentes</a>
+                    <a href="{{ route('site.testimonials') }}" class="nav-item nav-link {{ request()->routeIs('site.testimonials') ? 'active' : '' }}">Testimonios</a>
+                    <a href="{{ route('site.contact') }}" class="nav-item nav-link {{ request()->routeIs('site.contact') ? 'active' : '' }}">Contacto</a>
+                @endif
             </div>
             <a href="https://wa.me/{{ $client_data->whatsapp_country_code ?? '506' }}{{ $client_data->whatsapp_number ?? '87220999' }}" target="_blank" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">
                 Matrícula Online <i class="fa fa-arrow-right ms-3"></i>
