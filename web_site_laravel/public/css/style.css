@@ -57,15 +57,14 @@
     color: #FFFFFF;
 }
 
-/* Nuevos colores de botones */
+/* Colores de botones */
 .btn-primary {
-    background-color: var(--color-acento-verde) !important;
-    border-color: var(--color-acento-verde) !important;
+    background-color: var(--primary) !important;
+    border-color: var(--primary) !important;
 }
 
 .btn-primary:hover {
-    background-color: #00803E !important;
-    border-color: #00803E !important;
+    filter: brightness(0.92);
 }
 
 .btn-square {
