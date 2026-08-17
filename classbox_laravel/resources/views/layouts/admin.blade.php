@@ -294,6 +294,115 @@
             });
         }
     </script>
+
+    <!-- SweetAlert2 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        // Configuración de Toast Global Elegante
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3500,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            },
+            customClass: {
+                popup: 'rounded-2xl shadow-2xl border border-slate-100'
+            }
+        });
+
+        @if(session('success'))
+            Toast.fire({
+                icon: 'success',
+                title: '¡Operación Exitosa!',
+                text: "{{ session('success') }}",
+                iconColor: '#0d9488'
+            });
+        @endif
+
+        @if(session('error'))
+            Toast.fire({
+                icon: 'error',
+                title: 'Atención',
+                text: "{{ session('error') }}",
+                iconColor: '#e11d48'
+            });
+        @endif
+
+        @if(session('warning'))
+            Toast.fire({
+                icon: 'warning',
+                title: 'Advertencia',
+                text: "{{ session('warning') }}",
+                iconColor: '#f59e0b'
+            });
+        @endif
+
+        @if(isset($errors) && $errors->any())
+            Swal.fire({
+                icon: 'error',
+                title: 'Verifica los campos del formulario',
+                html: '<div class="text-left text-xs space-y-1 mt-2 text-slate-700 bg-rose-50 p-3 rounded-xl border border-rose-200">@foreach($errors->all() as $err)<div>• {{ $err }}</div>@endforeach</div>',
+                confirmButtonColor: '#0d9488',
+                confirmButtonText: 'Entendido',
+                customClass: {
+                    popup: 'rounded-2xl shadow-2xl border border-slate-100 p-6'
+                }
+            });
+        @endif
+
+        // Intercepción Automática de Formularios de Eliminación con SweetAlert2
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('form').forEach(form => {
+                const hasDeleteMethod = form.querySelector('input[name="_method"][value="DELETE"]');
+                const onsubmitAttr = form.getAttribute('onsubmit');
+                
+                if (hasDeleteMethod || (onsubmitAttr && onsubmitAttr.includes('confirm'))) {
+                    let msg = '¿Estás seguro de eliminar este elemento?';
+                    if (onsubmitAttr && onsubmitAttr.includes('confirm(')) {
+                        const match = onsubmitAttr.match(/confirm\(['"](.*?)['"]\)/);
+                        if (match && match[1]) {
+                            msg = match[1];
+                        }
+                    }
+                    form.removeAttribute('onsubmit');
+                    
+                    form.addEventListener('submit', function(e) {
+                        if (form.dataset.confirmed === 'true') {
+                            return true;
+                        }
+                        e.preventDefault();
+                        
+                        Swal.fire({
+                            title: '¿Confirmar acción?',
+                            text: msg,
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#e11d48',
+                            cancelButtonColor: '#64748b',
+                            confirmButtonText: '<i class="fa-solid fa-trash mr-1"></i> Sí, eliminar',
+                            cancelButtonText: 'Cancelar',
+                            reverseButtons: true,
+                            customClass: {
+                                popup: 'rounded-2xl shadow-2xl border border-slate-100 p-6',
+                                title: 'text-base font-bold text-slate-800',
+                                confirmButton: 'px-5 py-2.5 rounded-xl font-bold text-xs shadow-lg shadow-rose-600/30',
+                                cancelButton: 'px-5 py-2.5 rounded-xl font-bold text-xs'
+                            }
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                form.dataset.confirmed = 'true';
+                                form.submit();
+                            }
+                        });
+                    });
+                }
+            });
+        });
+    </script>
     @stack('scripts')
 </body>
 </html>

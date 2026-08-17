@@ -410,5 +410,63 @@
 
     <!-- Template Javascript -->
     <script src="{{ asset('js/main.js') }}"></script>
+
+    <!-- SweetAlert2 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 4000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            },
+            customClass: {
+                popup: 'rounded-4 shadow-lg border'
+            }
+        });
+
+        @if(session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: '¡Operación Exitosa!',
+                text: "{{ session('success') }}",
+                confirmButtonColor: '{{ $client_data->primary_color ?? "#06BBCC" }}',
+                confirmButtonText: 'Aceptar',
+                customClass: {
+                    popup: 'rounded-4 shadow-lg p-4'
+                }
+            });
+        @endif
+
+        @if(session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Atención',
+                text: "{{ session('error') }}",
+                confirmButtonColor: '#e11d48',
+                confirmButtonText: 'Aceptar',
+                customClass: {
+                    popup: 'rounded-4 shadow-lg p-4'
+                }
+            });
+        @endif
+
+        @if(isset($errors) && $errors->any())
+            Swal.fire({
+                icon: 'error',
+                title: 'Por favor revisa el formulario',
+                html: '<div style="text-align:left; font-size:14px; margin-top:8px;">@foreach($errors->all() as $err)<div>• {{ $err }}</div>@endforeach</div>',
+                confirmButtonColor: '{{ $client_data->primary_color ?? "#06BBCC" }}',
+                confirmButtonText: 'Entendido',
+                customClass: {
+                    popup: 'rounded-4 shadow-lg p-4'
+                }
+            });
+        @endif
+    </script>
 </body>
 </html>
