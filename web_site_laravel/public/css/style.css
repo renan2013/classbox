@@ -211,11 +211,12 @@
 
 @media (max-width: 768px) {
     .header-carousel .owl-carousel-item {
-        min-height: 500px; /* Mantener altura para pantallas pequeñas */
-        max-height: none; /* Anular la altura máxima para pantallas pequeñas */
+        min-height: 400px;
+        max-height: none;
     }
 
-    .header-carousel .owl-carousel-item .container .row .col-sm-10 h3 {
+    .header-carousel .owl-carousel-item .container .row .col-sm-10 h3,
+    .header-carousel .owl-carousel-item .container .row .col-sm-10 h1 {
         font-size: 1.5rem !important;
     }
 
@@ -225,10 +226,6 @@
 
     .header-carousel .owl-carousel-item .container .row {
         justify-content: center !important;
-    }
-
-    .header-carousel .owl-carousel-item .position-absolute.top-0.start-0.w-100.h-100.d-flex {
-        background: linear-gradient(to top, rgba(0, 160, 77, 0.9) 0%, rgba(0, 160, 77, 0) 100%) !important;
     }
 }
 
