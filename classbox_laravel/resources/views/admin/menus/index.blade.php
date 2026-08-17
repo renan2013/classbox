@@ -146,17 +146,20 @@
 
             <div class="divide-y divide-slate-100 flex-1">
                 @forelse($menus as $m)
-                    <div class="p-4 space-y-3 hover:bg-slate-50/50 transition {{ !$m->is_active ? 'bg-slate-50/70 opacity-70' : '' }}">
+                    @php
+                        $isActive = ($m->is_active !== null && $m->is_active !== '') ? (bool)$m->is_active : true;
+                    @endphp
+                    <div class="p-4 space-y-3 hover:bg-slate-50/50 transition {{ !$isActive ? 'bg-slate-50/70 opacity-70' : '' }}">
                         <div class="flex items-center justify-between gap-3">
                             <div class="flex items-center gap-3">
-                                <span class="w-7 h-7 rounded-lg {{ $m->is_active ? 'bg-teal-50 border-teal-100 text-teal-700' : 'bg-slate-100 border-slate-200 text-slate-400' }} border font-bold text-xs flex items-center justify-center shrink-0 shadow-sm">
+                                <span class="w-7 h-7 rounded-lg {{ $isActive ? 'bg-teal-50 border-teal-100 text-teal-700' : 'bg-slate-100 border-slate-200 text-slate-400' }} border font-bold text-xs flex items-center justify-center shrink-0 shadow-sm">
                                     {{ $m->display_order }}
                                 </span>
                                 <div>
                                     <div class="flex items-center gap-2">
-                                        <span class="font-bold {{ $m->is_active ? 'text-slate-900' : 'text-slate-500 line-through' }} text-sm">{{ $m->title }}</span>
+                                        <span class="font-bold {{ $isActive ? 'text-slate-900' : 'text-slate-500 line-through' }} text-sm">{{ $m->title }}</span>
                                         
-                                        @if(!$m->is_active)
+                                        @if(!$isActive)
                                             <span class="px-2 py-0.5 rounded-md bg-slate-200 text-slate-600 text-[10px] font-semibold">
                                                 Oculto en Sitio
                                             </span>
@@ -181,7 +184,7 @@
                                 {{-- Botón Ojo (Mostrar / Ocultar) --}}
                                 <form action="{{ route('admin.menus.toggle_status', $m->id) }}" method="POST">
                                     @csrf
-                                    @if($m->is_active)
+                                    @if($isActive)
                                         <button type="submit" class="px-2.5 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 rounded-lg text-xs font-semibold transition flex items-center gap-1.5" title="Menú visible en el sitio. Clic para ocultar">
                                             <i class="fa-solid fa-eye text-xs"></i>
                                             <span class="hidden sm:inline">Visible</span>
@@ -212,15 +215,18 @@
                         @if($m->children->isNotEmpty())
                             <div class="pl-8 space-y-2 border-l-2 border-teal-200 ml-3.5 pt-1 pb-1">
                                 @foreach($m->children as $sub)
-                                    <div class="flex items-center justify-between p-2 rounded-xl {{ $sub->is_active ? 'bg-slate-50 border-slate-200/80 hover:bg-white' : 'bg-slate-100/70 border-slate-200 opacity-60' }} border transition text-xs">
+                                    @php
+                                        $isSubActive = ($sub->is_active !== null && $sub->is_active !== '') ? (bool)$sub->is_active : true;
+                                    @endphp
+                                    <div class="flex items-center justify-between p-2 rounded-xl {{ $isSubActive ? 'bg-slate-50 border-slate-200/80 hover:bg-white' : 'bg-slate-100/70 border-slate-200 opacity-60' }} border transition text-xs">
                                         <div class="flex items-center gap-2.5">
                                             <span class="w-5 h-5 rounded bg-slate-200/70 font-semibold text-[10px] text-slate-600 flex items-center justify-center">
                                                 {{ $sub->display_order }}
                                             </span>
                                             <div>
-                                                <span class="font-semibold {{ $sub->is_active ? 'text-slate-800' : 'text-slate-500 line-through' }}">{{ $sub->title }}</span>
+                                                <span class="font-semibold {{ $isSubActive ? 'text-slate-800' : 'text-slate-500 line-through' }}">{{ $sub->title }}</span>
                                                 <span class="text-[10px] text-slate-400 font-mono ml-1.5">({{ $sub->url }})</span>
-                                                @if(!$sub->is_active)
+                                                @if(!$isSubActive)
                                                     <span class="ml-1 text-[9px] text-slate-400 font-bold uppercase">(Oculto)</span>
                                                 @endif
                                             </div>
@@ -230,7 +236,7 @@
                                             {{-- Ojo para submenú --}}
                                             <form action="{{ route('admin.menus.toggle_status', $sub->id) }}" method="POST">
                                                 @csrf
-                                                @if($sub->is_active)
+                                                @if($isSubActive)
                                                     <button type="submit" class="p-1 text-emerald-600 hover:text-emerald-800 transition" title="Submenú visible. Clic para ocultar">
                                                         <i class="fa-solid fa-eye text-xs"></i>
                                                     </button>

@@ -24,6 +24,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Auto-verificar y crear columna is_active en menus si aún no existe en producción
+        try {
+            if (Schema::hasTable('menus') && !Schema::hasColumn('menus', 'is_active')) {
+                Schema::table('menus', function (\Illuminate\Database\Schema\Blueprint $table) {
+                    $table->boolean('is_active')->default(true)->after('target');
+                });
+                \App\Models\Menu::whereNull('is_active')->update(['is_active' => true]);
+            }
+        } catch (\Throwable $e) {
+            // Silencioso
+        }
+
         View::composer('*', function ($view) {
             try {
                 $client_data = null;

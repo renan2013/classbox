@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Menu;
 use App\Models\Page;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 
 class MenuController extends Controller
 {
@@ -84,8 +86,20 @@ class MenuController extends Controller
 
     public function toggleStatus($id)
     {
+        try {
+            if (Schema::hasTable('menus') && !Schema::hasColumn('menus', 'is_active')) {
+                Schema::table('menus', function (Blueprint $table) {
+                    $table->boolean('is_active')->default(true)->after('target');
+                });
+                Menu::whereNull('is_active')->update(['is_active' => true]);
+            }
+        } catch (\Throwable $e) {
+            // Ignorar si ya existe
+        }
+
         $menu = Menu::findOrFail($id);
-        $menu->is_active = !$menu->is_active;
+        $current = ($menu->is_active !== null) ? (bool)$menu->is_active : true;
+        $menu->is_active = !$current;
         $menu->save();
 
         $statusText = $menu->is_active ? 'visible en el sitio web' : 'oculto del sitio web';
