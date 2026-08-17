@@ -24,6 +24,8 @@ Route::get('/graduacion/{id}', [GraduacionController::class, 'show'])->name('sit
 
 // Páginas Institucionales & Dinámicas
 Route::get('/quienes-somos', [PageController::class, 'about'])->name('site.about');
+Route::get('/about', [PageController::class, 'about']);
+Route::get('/sobre-nosotros', [PageController::class, 'about']);
 Route::get('/docentes', [PageController::class, 'team'])->name('site.team');
 Route::get('/testimonios', [PageController::class, 'testimonials'])->name('site.testimonials');
 Route::get('/pagina/{slug}', [PageController::class, 'show'])->name('site.page.show');

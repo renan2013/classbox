@@ -268,14 +268,8 @@
                     @foreach($site_menus as $menuItem)
                         @php
                             $targetAttr = ($menuItem->target === '_blank') ? 'target="_blank"' : '';
-                            $rawUrl = $menuItem->url;
-                            if (str_starts_with($rawUrl, 'http://') || str_starts_with($rawUrl, 'https://') || $rawUrl === '#') {
-                                $resolvedUrl = $rawUrl;
-                            } else {
-                                $base = rtrim(request()->getBaseUrl(), '/');
-                                $resolvedUrl = request()->getSchemeAndHttpHost() . $base . '/' . ltrim($rawUrl, '/');
-                            }
-                            $cleanPath = ltrim($rawUrl, '/');
+                            $resolvedUrl = site_url($menuItem->url);
+                            $cleanPath = ltrim($menuItem->url, '/');
                             $isActive = (request()->url() === $resolvedUrl || ($cleanPath !== '' && request()->is($cleanPath)) || ($cleanPath === '' && request()->is('/')));
                         @endphp
                         @if($menuItem->children->isNotEmpty())
@@ -284,13 +278,7 @@
                                 <div class="dropdown-menu fade-down m-0">
                                     @foreach($menuItem->children as $child)
                                         @php
-                                            $childRawUrl = $child->url;
-                                            if (str_starts_with($childRawUrl, 'http://') || str_starts_with($childRawUrl, 'https://') || $childRawUrl === '#') {
-                                                $childResolvedUrl = $childRawUrl;
-                                            } else {
-                                                $childBase = rtrim(request()->getBaseUrl(), '/');
-                                                $childResolvedUrl = request()->getSchemeAndHttpHost() . $childBase . '/' . ltrim($childRawUrl, '/');
-                                            }
+                                            $childResolvedUrl = site_url($child->url);
                                             $childTarget = ($child->target === '_blank') ? 'target="_blank"' : '';
                                         @endphp
                                         <a href="{{ $childResolvedUrl }}" {!! $childTarget !!} class="dropdown-item">{{ $child->title }}</a>

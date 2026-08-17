@@ -9,6 +9,21 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
+if (!function_exists('site_url')) {
+    function site_url(?string $path = null): string
+    {
+        if (empty($path)) {
+            $base = rtrim(request()->getBaseUrl(), '/');
+            return request()->getSchemeAndHttpHost() . ($base ?: '');
+        }
+        if (str_starts_with($path, 'http://') || str_starts_with($path, 'https://') || $path === '#') {
+            return $path;
+        }
+        $base = rtrim(request()->getBaseUrl(), '/');
+        return request()->getSchemeAndHttpHost() . $base . '/' . ltrim($path, '/');
+    }
+}
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
