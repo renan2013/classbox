@@ -196,10 +196,19 @@
 
 
 /*** Header carousel ***/
+.header-carousel.owl-carousel {
+    position: relative;
+    width: 100%;
+}
+
+.header-carousel.owl-carousel .owl-stage-outer {
+    overflow: visible !important;
+}
+
 .header-carousel .owl-carousel-item {
     position: relative;
     width: 100%;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .header-carousel .owl-carousel-item img,
@@ -229,11 +238,42 @@
     }
 
     .header-carousel .slider-mobile-overlay {
-        background: linear-gradient(180deg, transparent 0%, rgba(15, 23, 42, 0.20) 50%, rgba(15, 23, 42, 0.75) 100%) !important;
+        background: linear-gradient(180deg, transparent 0%, rgba(15, 23, 42, 0.15) 60%, rgba(15, 23, 42, 0.65) 100%) !important;
         align-items: flex-end !important;
-        padding-bottom: 0.8rem !important;
+        padding-bottom: 0 !important;
         padding-left: 0.5rem !important;
         padding-right: 0.5rem !important;
+    }
+
+    .header-carousel .slider-btn-wrapper {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        transform: translateY(50%);
+        z-index: 25;
+    }
+
+    .header-carousel .slider-mobile-btn {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        padding: 6px 20px !important;
+        border-radius: 50px !important;
+        font-size: 0.82rem !important;
+        font-weight: 700 !important;
+        background-color: var(--primary) !important;
+        color: #ffffff !important;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28) !important;
+        text-decoration: none !important;
+        border: 2px solid #ffffff !important;
+        transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+    }
+
+    .header-carousel .slider-mobile-btn:active {
+        transform: scale(0.96);
     }
 
     .header-carousel .slider-mobile-badge {
@@ -260,26 +300,6 @@
         color: #ffffff !important;
         text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7) !important;
         margin-bottom: 6px !important;
-    }
-
-    .header-carousel .slider-mobile-btn {
-        display: inline-flex !important;
-        align-items: center !important;
-        gap: 5px !important;
-        padding: 5px 14px !important;
-        border-radius: 30px !important;
-        font-size: 0.75rem !important;
-        font-weight: 600 !important;
-        background-color: var(--primary) !important;
-        color: #ffffff !important;
-        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35) !important;
-        text-decoration: none !important;
-        border: none !important;
-        transition: transform 0.2s ease, box-shadow 0.2s ease !important;
-    }
-
-    .header-carousel .slider-mobile-btn:active {
-        transform: scale(0.96);
     }
 
     .header-carousel .owl-nav {

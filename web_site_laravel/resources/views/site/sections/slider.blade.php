@@ -146,7 +146,7 @@
 @endphp
 
 <!-- Modular Section: Carousel / Slider -->
-<div class="container-fluid p-0 mb-3 mb-md-4">
+<div class="container-fluid p-0 mb-4 pb-2 pb-md-0 mb-md-4">
     <div class="owl-carousel header-carousel position-relative">
         @if($hasCustomBanners)
             {{-- Banners generales --}}
@@ -195,15 +195,17 @@
                                             </h1>
                                         @endif
                                         @if($showBtn)
-                                            @if($isTextLink)
-                                                <a href="{{ $b->button_url ?? route('site.contact') }}" class="{{ $btnClass }} slider-mobile-btn" style="color: {{ $client_data->primary_color ?? '#06BBCC' }}; {{ $fontCss }} font-size: 1.1rem;">
-                                                    <span>{{ $b->button_text }}</span> <i class="fa fa-arrow-right ms-1 text-xs"></i>
-                                                </a>
-                                            @else
-                                                <a href="{{ $b->button_url ?? route('site.contact') }}" class="{{ $btnClass }} slider-mobile-btn">
-                                                    {{ $b->button_text }}
-                                                </a>
-                                            @endif
+                                            <div class="slider-btn-wrapper">
+                                                @if($isTextLink)
+                                                    <a href="{{ $b->button_url ?? route('site.contact') }}" class="{{ $btnClass }} slider-mobile-btn" style="color: {{ $client_data->primary_color ?? '#06BBCC' }}; {{ $fontCss }} font-size: 1.1rem;">
+                                                        <span>{{ $b->button_text }}</span> <i class="fa fa-arrow-right ms-1 text-xs"></i>
+                                                    </a>
+                                                @else
+                                                    <a href="{{ $b->button_url ?? route('site.contact') }}" class="{{ $btnClass }} slider-mobile-btn">
+                                                        {{ $b->button_text }}
+                                                    </a>
+                                                @endif
+                                            </div>
                                         @endif
 
                                         @if($isGlass)
@@ -257,15 +259,17 @@
                                             </h1>
                                         @endif
                                         @if($showBtn)
-                                            @if($isTextLink)
-                                                <a href="{{ route('site.course.show', $ps->post->id) }}" class="{{ $btnClass }} slider-mobile-btn" style="color: {{ $client_data->primary_color ?? '#06BBCC' }}; {{ $fontCss }} font-size: 1.1rem;">
-                                                    <span>Ver Programa Completo</span> <i class="fa fa-arrow-right ms-1 text-xs"></i>
-                                                </a>
-                                            @else
-                                                <a href="{{ route('site.course.show', $ps->post->id) }}" class="{{ $btnClass }} slider-mobile-btn">
-                                                    Ver Programa Completo
-                                                </a>
-                                            @endif
+                                            <div class="slider-btn-wrapper">
+                                                @if($isTextLink)
+                                                    <a href="{{ route('site.course.show', $ps->post->id) }}" class="{{ $btnClass }} slider-mobile-btn" style="color: {{ $client_data->primary_color ?? '#06BBCC' }}; {{ $fontCss }} font-size: 1.1rem;">
+                                                        <span>Ver Programa Completo</span> <i class="fa fa-arrow-right ms-1 text-xs"></i>
+                                                    </a>
+                                                @else
+                                                    <a href="{{ route('site.course.show', $ps->post->id) }}" class="{{ $btnClass }} slider-mobile-btn">
+                                                        Ver Programa Completo
+                                                    </a>
+                                                @endif
+                                            </div>
                                         @endif
 
                                         @if($isGlass)
