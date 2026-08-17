@@ -55,6 +55,18 @@
                            placeholder="https://ceficr.com"
                            class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 focus:ring-2 focus:ring-teal-500 focus:bg-white transition">
                 </div>
+
+                <div class="md:col-span-2">
+                    <label class="block text-xs font-bold text-slate-800 mb-1.5 flex items-center gap-1.5">
+                        <i class="fa-solid fa-align-left text-teal-600"></i> Reseña Institucional para el Pie de Página (Footer)
+                    </label>
+                    <textarea name="meta_description" rows="3" 
+                              placeholder="Ej: Especialistas en desarrollo de software, diseño gráfico, robótica y capacitación profesional..."
+                              class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 focus:ring-2 focus:ring-teal-500 focus:bg-white transition shadow-inner">{{ old('meta_description', $client_data->meta_description) }}</textarea>
+                    <span class="block text-[11px] text-slate-400 mt-1">
+                        <i class="fa-solid fa-circle-info text-teal-600 mr-1"></i> Este texto aparece en la esquina derecha del <strong>Pie de Página (Footer)</strong> del sitio web, debajo del logotipo.
+                    </span>
+                </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-5 pt-3 border-t border-slate-100">
