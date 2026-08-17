@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Nuestras Graduaciones - CEFI')
+@section('title', 'Galería de Graduaciones - ' . ($client_data->company_name ?? 'CEFI'))
 
 @section('content')
 <!-- Breadcrumb Start -->
