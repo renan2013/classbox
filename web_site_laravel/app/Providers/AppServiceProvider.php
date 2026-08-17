@@ -29,8 +29,9 @@ class AppServiceProvider extends ServiceProvider
                 View::composer('*', function ($view) {
                     $client_data = ClientData::first();
                     $categories = Category::withCount('posts')->get();
-                    $site_menus = Menu::with(['children' => fn($q) => $q->orderBy('display_order', 'asc')])
+                    $site_menus = Menu::with(['children' => fn($q) => $q->where('is_active', true)->orderBy('display_order', 'asc')])
                         ->whereNull('parent_id')
+                        ->where('is_active', true)
                         ->orderBy('display_order', 'asc')
                         ->get();
 

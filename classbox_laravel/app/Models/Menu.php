@@ -15,6 +15,11 @@ class Menu extends Model
         'display_order',
         'parent_id',
         'target',
+        'is_active',
+    ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
     ];
 
     public function parent()

@@ -54,6 +54,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // Módulo: Menús
         Route::middleware('module:menus')->group(function () {
             Route::post('menus/seed-defaults', [MenuController::class, 'seedDefaults'])->name('menus.seed_defaults');
+            Route::post('menus/{id}/toggle-status', [MenuController::class, 'toggleStatus'])->name('menus.toggle_status');
             Route::resource('menus', MenuController::class)->except(['create', 'show']);
         });
 

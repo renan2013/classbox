@@ -146,15 +146,22 @@
 
             <div class="divide-y divide-slate-100 flex-1">
                 @forelse($menus as $m)
-                    <div class="p-4 space-y-3 hover:bg-slate-50/50 transition">
+                    <div class="p-4 space-y-3 hover:bg-slate-50/50 transition {{ !$m->is_active ? 'bg-slate-50/70 opacity-70' : '' }}">
                         <div class="flex items-center justify-between gap-3">
                             <div class="flex items-center gap-3">
-                                <span class="w-7 h-7 rounded-lg bg-teal-50 border border-teal-100 font-bold text-xs text-teal-700 flex items-center justify-center shrink-0 shadow-sm">
+                                <span class="w-7 h-7 rounded-lg {{ $m->is_active ? 'bg-teal-50 border-teal-100 text-teal-700' : 'bg-slate-100 border-slate-200 text-slate-400' }} border font-bold text-xs flex items-center justify-center shrink-0 shadow-sm">
                                     {{ $m->display_order }}
                                 </span>
                                 <div>
                                     <div class="flex items-center gap-2">
-                                        <span class="font-bold text-slate-900 text-sm">{{ $m->title }}</span>
+                                        <span class="font-bold {{ $m->is_active ? 'text-slate-900' : 'text-slate-500 line-through' }} text-sm">{{ $m->title }}</span>
+                                        
+                                        @if(!$m->is_active)
+                                            <span class="px-2 py-0.5 rounded-md bg-slate-200 text-slate-600 text-[10px] font-semibold">
+                                                Oculto en Sitio
+                                            </span>
+                                        @endif
+
                                         @if($m->children->isNotEmpty())
                                             <span class="px-2 py-0.5 rounded-md bg-amber-50 text-amber-700 text-[10px] font-semibold border border-amber-200">
                                                 Desplegable ({{ $m->children->count() }} submenús)
@@ -171,6 +178,22 @@
                             </div>
 
                             <div class="flex items-center gap-1.5 shrink-0">
+                                {{-- Botón Ojo (Mostrar / Ocultar) --}}
+                                <form action="{{ route('admin.menus.toggle_status', $m->id) }}" method="POST">
+                                    @csrf
+                                    @if($m->is_active)
+                                        <button type="submit" class="px-2.5 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 rounded-lg text-xs font-semibold transition flex items-center gap-1.5" title="Menú visible en el sitio. Clic para ocultar">
+                                            <i class="fa-solid fa-eye text-xs"></i>
+                                            <span class="hidden sm:inline">Visible</span>
+                                        </button>
+                                    @else
+                                        <button type="submit" class="px-2.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-500 border border-slate-200 rounded-lg text-xs font-semibold transition flex items-center gap-1.5" title="Menú oculto en el sitio. Clic para mostrar">
+                                            <i class="fa-solid fa-eye-slash text-xs"></i>
+                                            <span class="hidden sm:inline">Oculto</span>
+                                        </button>
+                                    @endif
+                                </form>
+
                                 <a href="{{ route('admin.menus.edit', $m->id) }}" class="px-2.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-semibold transition flex items-center gap-1">
                                     <i class="fa-solid fa-pen text-[10px]"></i>
                                     <span>Editar</span>
@@ -189,18 +212,35 @@
                         @if($m->children->isNotEmpty())
                             <div class="pl-8 space-y-2 border-l-2 border-teal-200 ml-3.5 pt-1 pb-1">
                                 @foreach($m->children as $sub)
-                                    <div class="flex items-center justify-between p-2 rounded-xl bg-slate-50 border border-slate-200/80 hover:bg-white transition text-xs">
+                                    <div class="flex items-center justify-between p-2 rounded-xl {{ $sub->is_active ? 'bg-slate-50 border-slate-200/80 hover:bg-white' : 'bg-slate-100/70 border-slate-200 opacity-60' }} border transition text-xs">
                                         <div class="flex items-center gap-2.5">
                                             <span class="w-5 h-5 rounded bg-slate-200/70 font-semibold text-[10px] text-slate-600 flex items-center justify-center">
                                                 {{ $sub->display_order }}
                                             </span>
                                             <div>
-                                                <span class="font-semibold text-slate-800">{{ $sub->title }}</span>
+                                                <span class="font-semibold {{ $sub->is_active ? 'text-slate-800' : 'text-slate-500 line-through' }}">{{ $sub->title }}</span>
                                                 <span class="text-[10px] text-slate-400 font-mono ml-1.5">({{ $sub->url }})</span>
+                                                @if(!$sub->is_active)
+                                                    <span class="ml-1 text-[9px] text-slate-400 font-bold uppercase">(Oculto)</span>
+                                                @endif
                                             </div>
                                         </div>
 
                                         <div class="flex items-center gap-1">
+                                            {{-- Ojo para submenú --}}
+                                            <form action="{{ route('admin.menus.toggle_status', $sub->id) }}" method="POST">
+                                                @csrf
+                                                @if($sub->is_active)
+                                                    <button type="submit" class="p-1 text-emerald-600 hover:text-emerald-800 transition" title="Submenú visible. Clic para ocultar">
+                                                        <i class="fa-solid fa-eye text-xs"></i>
+                                                    </button>
+                                                @else
+                                                    <button type="submit" class="p-1 text-slate-400 hover:text-slate-600 transition" title="Submenú oculto. Clic para mostrar">
+                                                        <i class="fa-solid fa-eye-slash text-xs"></i>
+                                                    </button>
+                                                @endif
+                                            </form>
+
                                             <a href="{{ route('admin.menus.edit', $sub->id) }}" class="p-1 text-slate-400 hover:text-slate-700 transition" title="Editar submenú">
                                                 <i class="fa-solid fa-pen text-[10px]"></i>
                                             </a>

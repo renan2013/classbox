@@ -76,9 +76,20 @@ class MenuController extends Controller
             'display_order' => $request->display_order ?? 0,
             'parent_id' => $request->parent_id,
             'target' => $request->target ?? '_self',
+            'is_active' => $request->has('is_active') ? $request->boolean('is_active') : $menu->is_active,
         ]);
 
         return redirect()->route('admin.menus.index')->with('success', 'Menú actualizado exitosamente.');
+    }
+
+    public function toggleStatus($id)
+    {
+        $menu = Menu::findOrFail($id);
+        $menu->is_active = !$menu->is_active;
+        $menu->save();
+
+        $statusText = $menu->is_active ? 'visible en el sitio web' : 'oculto del sitio web';
+        return back()->with('success', "Menú '{$menu->title}' ahora está {$statusText}.");
     }
 
     public function destroy($id)
