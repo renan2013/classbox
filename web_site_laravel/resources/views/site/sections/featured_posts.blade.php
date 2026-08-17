@@ -40,18 +40,9 @@
                                         {{ $post->title }}
                                     </a>
                                 </h5>
-                                <p class="text-muted small course-card-desc mb-3">
+                                <p class="text-muted small course-card-desc mb-0">
                                     {{ Str::limit($post->synopsis ?: strip_tags($post->content), 100) }}
                                 </p>
-
-                                <div class="d-flex align-items-center text-muted small pt-2 border-top">
-                                    <span class="d-inline-flex align-items-center me-3">
-                                        <i class="fa fa-user-tie text-primary me-1"></i> {{ $post->instructor_name ?: 'CEFI Docentes' }}
-                                    </span>
-                                    <span class="d-inline-flex align-items-center ms-auto text-primary fw-semibold">
-                                        <i class="fa fa-certificate me-1"></i> Certificado
-                                    </span>
-                                </div>
                             </div>
                         </div>
 
