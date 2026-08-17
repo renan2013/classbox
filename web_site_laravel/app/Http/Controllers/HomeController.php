@@ -26,7 +26,7 @@ class HomeController extends Controller
             $sections = collect([
                 (object) ['section_key' => 'slider', 'title' => null, 'subtitle' => null, 'settings' => []],
                 (object) ['section_key' => 'categories', 'title' => 'Áreas de Formación', 'subtitle' => 'Nuestras Escuelas', 'settings' => []],
-                (object) ['section_key' => 'featured_posts', 'title' => 'Programas Destacados', 'subtitle' => 'Cursos Populares', 'settings' => ['limit' => 6]],
+                (object) ['section_key' => 'featured_posts', 'title' => 'Productos Destacados', 'subtitle' => 'Productos', 'settings' => ['limit' => 6]],
                 (object) ['section_key' => 'testimonials', 'title' => 'Lo Que Dicen Nuestros Estudiantes', 'subtitle' => 'Testimonios', 'settings' => []],
             ]);
         }
