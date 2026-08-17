@@ -249,10 +249,13 @@
                     'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
                     'insertdatetime', 'media', 'table', 'help', 'wordcount'
                 ],
-                toolbar: 'undo redo | blocks | bold italic underline strikethrough | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | table link image media | removeformat code fullscreen',
+                toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | table link image media | code fullscreen',
                 content_style: 'body { font-family: Plus Jakarta Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #334155; }',
                 branding: false,
                 promotion: false,
+                extended_valid_elements: '*[*]',
+                valid_elements: '*[*]',
+                verify_html: false,
                 images_upload_handler: uploadUrl ? function (blobInfo, progress) {
                     return new Promise((resolve, reject) => {
                         const xhr = new XMLHttpRequest();

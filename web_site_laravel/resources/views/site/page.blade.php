@@ -39,4 +39,63 @@
     </div>
 </div>
 <!-- Dynamic Page Content End -->
+
+@push('styles')
+<style>
+    .page-content {
+        line-height: 1.8;
+        color: #334155;
+    }
+    .page-content h1, .page-content h2, .page-content h3, .page-content h4, .page-content h5, .page-content h6 {
+        color: #0f172a;
+        font-weight: 700;
+        margin-top: 1.75rem;
+        margin-bottom: 0.75rem;
+    }
+    .page-content p {
+        margin-bottom: 1.25rem;
+    }
+    .page-content img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 0.75rem;
+        margin: 1.5rem 0;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+    .page-content blockquote {
+        border-left: 4px solid var(--primary, #06BBCC);
+        padding: 1rem 1.25rem;
+        margin: 1.5rem 0;
+        font-style: italic;
+        color: #475569;
+        background: #f8fafc;
+        border-radius: 0 0.5rem 0.5rem 0;
+    }
+    .page-content table {
+        width: 100%;
+        margin-bottom: 1.5rem;
+        border-collapse: collapse;
+    }
+    .page-content table th, .page-content table td {
+        padding: 0.75rem 1rem;
+        border: 1px solid #e2e8f0;
+    }
+    .page-content table th {
+        background-color: #f1f5f9;
+        font-weight: 600;
+        color: #1e293b;
+    }
+    .page-content ul, .page-content ol {
+        margin-bottom: 1.25rem;
+        padding-left: 1.5rem;
+    }
+    .page-content li {
+        margin-bottom: 0.5rem;
+    }
+    .page-content iframe {
+        max-width: 100%;
+        border-radius: 0.75rem;
+    }
+</style>
+@endpush
 @endsection
