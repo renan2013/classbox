@@ -218,13 +218,24 @@
                                     <i class="fa-solid fa-pen text-[10px]"></i>
                                     <span>Editar</span>
                                 </a>
-                                <form action="{{ route('admin.menus.destroy', $m->id) }}" method="POST" onsubmit="return confirm('¿Eliminar \'{{ $m->title }}\' y todos sus submenús?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="p-1.5 text-rose-500 hover:text-rose-700 hover:bg-rose-50 rounded-lg transition" title="Eliminar menú">
-                                        <i class="fa-solid fa-trash text-xs"></i>
-                                    </button>
-                                </form>
+
+                                @php
+                                    $isSystemMenu = in_array(rtrim($m->url, '/'), ['', '/', '#', '/graduaciones', '/quienes-somos', '/docentes', '/testimonios', '/contacto', '/portafolio', '/sobre-nosotros', '/about']) || str_starts_with($m->url, '/categoria/');
+                                @endphp
+
+                                @if($isSystemMenu)
+                                    <span class="p-1.5 text-slate-300 cursor-help" title="Página nativa del sistema. No se puede eliminar, pero puedes ocultarla del sitio con el botón de visibilidad.">
+                                        <i class="fa-solid fa-shield-halved text-xs"></i>
+                                    </span>
+                                @else
+                                    <form action="{{ route('admin.menus.destroy', $m->id) }}" method="POST" onsubmit="return confirm('¿Eliminar \'{{ $m->title }}\' y todos sus submenús?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="p-1.5 text-rose-500 hover:text-rose-700 hover:bg-rose-50 rounded-lg transition" title="Eliminar menú personalizado">
+                                            <i class="fa-solid fa-trash text-xs"></i>
+                                        </button>
+                                    </form>
+                                @endif
                             </div>
                         </div>
 
@@ -234,6 +245,7 @@
                                 @foreach($m->children as $sub)
                                     @php
                                         $isSubActive = ($sub->is_active !== null && $sub->is_active !== '') ? (bool)$sub->is_active : true;
+                                        $isSubSystem = in_array(rtrim($sub->url, '/'), ['', '/', '#', '/graduaciones', '/quienes-somos', '/docentes', '/testimonios', '/contacto', '/portafolio', '/sobre-nosotros', '/about']) || str_starts_with($sub->url, '/categoria/');
                                     @endphp
                                     <div class="flex items-center justify-between p-2 rounded-xl {{ $isSubActive ? 'bg-slate-50 border-slate-200/80 hover:bg-white' : 'bg-slate-100/70 border-slate-200 opacity-60' }} border transition text-xs">
                                         <div class="flex items-center gap-2.5">
@@ -267,13 +279,20 @@
                                             <a href="{{ route('admin.menus.edit', $sub->id) }}" class="p-1 text-slate-400 hover:text-slate-700 transition" title="Editar submenú">
                                                 <i class="fa-solid fa-pen text-[10px]"></i>
                                             </a>
-                                            <form action="{{ route('admin.menus.destroy', $sub->id) }}" method="POST" onsubmit="return confirm('¿Eliminar submenú \'{{ $sub->title }}\'?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="p-1 text-slate-400 hover:text-rose-600 transition" title="Eliminar">
-                                                    <i class="fa-solid fa-xmark text-xs"></i>
-                                                </button>
-                                            </form>
+
+                                            @if($isSubSystem)
+                                                <span class="p-1 text-slate-300" title="Submenú protegido del sistema. Puedes ocultarlo usando el botón de visibilidad.">
+                                                    <i class="fa-solid fa-shield-halved text-[10px]"></i>
+                                                </span>
+                                            @else
+                                                <form action="{{ route('admin.menus.destroy', $sub->id) }}" method="POST" onsubmit="return confirm('¿Eliminar submenú \'{{ $sub->title }}\'?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="p-1 text-slate-400 hover:text-rose-600 transition" title="Eliminar">
+                                                        <i class="fa-solid fa-xmark text-xs"></i>
+                                                    </button>
+                                                </form>
+                                            @endif
                                         </div>
                                     </div>
                                 @endforeach

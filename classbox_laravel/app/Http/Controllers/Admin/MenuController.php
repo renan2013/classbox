@@ -181,6 +181,12 @@ class MenuController extends Controller
     public function destroy($id)
     {
         $menu = Menu::findOrFail($id);
+        $systemUrls = ['', '/', '#', '/graduaciones', '/quienes-somos', '/docentes', '/testimonios', '/contacto', '/portafolio', '/sobre-nosotros', '/about'];
+
+        if (in_array(rtrim($menu->url, '/'), $systemUrls) || str_starts_with($menu->url, '/categoria/')) {
+            return back()->with('error', "El menú '{$menu->title}' es una página base del sistema y no se puede eliminar. Puedes ocultarlo del sitio web haciendo clic en el icono del ojo.");
+        }
+
         // Eliminar submenús asociados si existen
         $menu->children()->delete();
         $menu->delete();

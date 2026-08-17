@@ -84,16 +84,41 @@
                             </td>
                             <td class="py-3 px-4 text-right whitespace-nowrap">
                                 <div class="flex items-center justify-end gap-1.5">
+                                    {{-- Botón de Visibilidad (Ojo) --}}
+                                    <form action="{{ route('admin.pages.toggle_status', $p->id) }}" method="POST">
+                                        @csrf
+                                        @if($p->is_published)
+                                            <button type="submit" class="p-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 rounded-lg transition" title="Página publicada. Clic para ocultar (borrador)">
+                                                <i class="fa-solid fa-eye text-xs"></i>
+                                            </button>
+                                        @else
+                                            <button type="submit" class="p-1.5 bg-slate-100 hover:bg-slate-200 text-slate-400 rounded-lg transition" title="Página en borrador. Clic para publicar">
+                                                <i class="fa-solid fa-eye-slash text-xs"></i>
+                                            </button>
+                                        @endif
+                                    </form>
+
                                     <a href="{{ route('admin.pages.edit', $p->id) }}" class="p-1.5 bg-slate-100 hover:bg-teal-50 text-slate-600 hover:text-teal-600 rounded-lg transition" title="Editar">
                                         <i class="fa-solid fa-pen text-xs"></i>
                                     </a>
-                                    <form action="{{ route('admin.pages.destroy', $p->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar esta página?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="p-1.5 bg-slate-100 hover:bg-rose-50 text-slate-600 hover:text-rose-600 rounded-lg transition" title="Eliminar">
-                                            <i class="fa-solid fa-trash text-xs"></i>
-                                        </button>
-                                    </form>
+
+                                    @php
+                                        $isSystemPage = in_array($p->slug, ['quienes-somos', 'sobre-nosotros', 'about', 'contacto', 'docentes', 'testimonios', 'graduaciones', 'portafolio', 'inicio']);
+                                    @endphp
+
+                                    @if($isSystemPage)
+                                        <span class="p-1.5 text-slate-300 cursor-help" title="Página base del sistema. No se puede eliminar, pero puedes ocultarla usando el botón de visibilidad.">
+                                            <i class="fa-solid fa-shield-halved text-xs"></i>
+                                        </span>
+                                    @else
+                                        <form action="{{ route('admin.pages.destroy', $p->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar esta página?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="p-1.5 bg-slate-100 hover:bg-rose-50 text-slate-600 hover:text-rose-600 rounded-lg transition" title="Eliminar">
+                                                <i class="fa-solid fa-trash text-xs"></i>
+                                            </button>
+                                        </form>
+                                    @endif
                                 </div>
                             </td>
                         </tr>

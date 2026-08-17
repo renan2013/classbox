@@ -90,6 +90,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // Módulo: Páginas Estáticas
         Route::middleware('module:pages')->group(function () {
+            Route::post('pages/{id}/toggle-status', [PageController::class, 'toggleStatus'])->name('pages.toggle_status');
             Route::resource('pages', PageController::class)->except(['show']);
         });
 

@@ -95,9 +95,24 @@ class PageController extends Controller
         return redirect()->route('admin.pages.index')->with('success', 'Página actualizada correctamente.');
     }
 
+    public function toggleStatus($id)
+    {
+        $page = Page::findOrFail($id);
+        $page->is_published = !$page->is_published;
+        $page->save();
+
+        $statusText = $page->is_published ? 'publicada (visible)' : 'en borrador (oculta)';
+        return back()->with('success', "Página '{$page->title}' ahora está {$statusText}.");
+    }
+
     public function destroy($id)
     {
         $page = Page::findOrFail($id);
+        $systemSlugs = ['quienes-somos', 'sobre-nosotros', 'about', 'contacto', 'docentes', 'testimonios', 'graduaciones', 'portafolio', 'inicio'];
+
+        if (in_array($page->slug, $systemSlugs)) {
+            return back()->with('error', "La página '{$page->title}' es una página base del sistema y no se puede eliminar. Puedes ocultarla cambiando su estado a Borrador con el botón del ojo.");
+        }
 
         if ($page->featured_image && Storage::disk('public')->exists($page->featured_image)) {
             Storage::disk('public')->delete($page->featured_image);
