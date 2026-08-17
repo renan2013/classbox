@@ -254,9 +254,9 @@
     <nav class="navbar navbar-expand-lg navbar-custom navbar-light shadow sticky-top p-0">
         <a href="{{ route('site.home') }}" class="navbar-brand d-flex align-items-center px-4 px-lg-5 py-2">
             @if($client_data?->logo_url)
-                <img src="{{ $client_data->logo_url }}" alt="{{ $client_data->company_name ?? 'Logo' }}" style="max-height: 52px; width: auto; object-fit: contain;">
+                <img src="{{ $client_data->logo_url }}" alt="{{ $client_data->company_name ?? 'Logo' }}" class="site-logo-img" style="max-height: 41px; width: auto; object-fit: contain;">
             @else
-                <h2 class="m-0 text-primary"><i class="fa fa-book-reader me-3"></i>{{ $client_data->company_name ?? 'CEFI' }}</h2>
+                <h2 class="m-0 text-primary site-logo-text" style="font-size: 1.45rem;"><i class="fa fa-book-reader me-3"></i>{{ $client_data->company_name ?? 'CEFI' }}</h2>
             @endif
         </a>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
