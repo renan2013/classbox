@@ -603,15 +603,13 @@
                                    class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800">
                         </div>
 
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-1.5">
-                                📝 Meta Descripción Global y Reseña del Pie de Página (Footer)
-                            </label>
-                            <textarea name="meta_description" rows="3" placeholder="Ej: Especialistas en desarrollo de software, diseño gráfico, robótica y capacitación profesional..."
-                                      class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800">{{ old('meta_description', $client_data->meta_description) }}</textarea>
-                            <span class="block text-[11px] text-slate-400 mt-1">
-                                <i class="fa-solid fa-circle-info text-teal-600 mr-1"></i> Este texto se muestra en los resultados de búsqueda de Google y debajo del logo en el <strong>Pie de Página (Footer)</strong>.
+                        <div class="p-3 bg-purple-50/60 rounded-xl border border-purple-100 text-xs text-purple-900">
+                            <span class="font-bold flex items-center gap-1.5 mb-1">
+                                <i class="fa-solid fa-circle-info text-purple-600"></i> Meta Descripción SEO
                             </span>
+                            <p class="text-[11px] text-purple-700 leading-relaxed">
+                                La descripción de Google se sincroniza automáticamente con el campo <strong>"Reseña Institucional para el Pie de Página (Footer)"</strong> ubicado en la primera sección superior.
+                            </p>
                         </div>
 
                         <div>
