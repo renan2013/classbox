@@ -92,7 +92,7 @@
                     </label>
                     <p class="text-[11px] text-slate-400 mb-3">Controla cómo se muestra la imagen y el efecto visual de contraste para el texto.</p>
 
-                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
                         <!-- 1. Imagen Pura -->
                         <label class="relative flex flex-col p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white cursor-pointer transition text-center group has-[:checked]:border-teal-500 has-[:checked]:bg-teal-50/40 has-[:checked]:ring-2 has-[:checked]:ring-teal-500/20">
                             <input type="radio" name="overlay_style" value="none" {{ old('overlay_style', $banner->overlay_style) == 'none' ? 'checked' : '' }} class="sr-only">
@@ -101,15 +101,31 @@
                             <span class="text-[10px] text-slate-400">Sin sombras ni filtros</span>
                         </label>
 
-                        <!-- 2. Gradiente Inferior -->
+                        <!-- 2. Gradiente Suave (Nivel 1) -->
                         <label class="relative flex flex-col p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white cursor-pointer transition text-center group has-[:checked]:border-teal-500 has-[:checked]:bg-teal-50/40 has-[:checked]:ring-2 has-[:checked]:ring-teal-500/20">
-                            <input type="radio" name="overlay_style" value="bottom_gradient" {{ old('overlay_style', $banner->overlay_style ?? 'bottom_gradient') == 'bottom_gradient' ? 'checked' : '' }} class="sr-only">
-                            <div class="h-10 w-full rounded-lg bg-gradient-to-t from-slate-900 via-slate-900/50 to-transparent mb-2 flex items-end justify-center pb-1 text-white text-[9px] font-bold shadow-inner">Sombra Abajo</div>
-                            <span class="text-xs font-bold text-slate-800">Gradiente Inferior</span>
-                            <span class="text-[10px] text-slate-400">Nítido arriba, sombra abajo</span>
+                            <input type="radio" name="overlay_style" value="bottom_gradient_soft" {{ old('overlay_style', $banner->overlay_style) == 'bottom_gradient_soft' ? 'checked' : '' }} class="sr-only">
+                            <div class="h-10 w-full rounded-lg bg-gradient-to-t from-slate-900/40 via-transparent to-transparent mb-2 flex items-end justify-center pb-1 text-white text-[9px] font-bold shadow-inner">Suave (35%)</div>
+                            <span class="text-xs font-bold text-slate-800">Grad. Suave</span>
+                            <span class="text-[10px] text-slate-400">Sombra ligera</span>
                         </label>
 
-                        <!-- 3. Gradiente Lateral -->
+                        <!-- 3. Gradiente Medio (Nivel 2) -->
+                        <label class="relative flex flex-col p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white cursor-pointer transition text-center group has-[:checked]:border-teal-500 has-[:checked]:bg-teal-50/40 has-[:checked]:ring-2 has-[:checked]:ring-teal-500/20">
+                            <input type="radio" name="overlay_style" value="bottom_gradient" {{ old('overlay_style', $banner->overlay_style ?? 'bottom_gradient') == 'bottom_gradient' ? 'checked' : '' }} class="sr-only">
+                            <div class="h-10 w-full rounded-lg bg-gradient-to-t from-slate-900/75 via-slate-900/35 to-transparent mb-2 flex items-end justify-center pb-1 text-white text-[9px] font-bold shadow-inner">Medio (70%)</div>
+                            <span class="text-xs font-bold text-slate-800">Grad. Medio</span>
+                            <span class="text-[10px] text-slate-400">Balance estándar</span>
+                        </label>
+
+                        <!-- 4. Gradiente Fuerte (Nivel 3) -->
+                        <label class="relative flex flex-col p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white cursor-pointer transition text-center group has-[:checked]:border-teal-500 has-[:checked]:bg-teal-50/40 has-[:checked]:ring-2 has-[:checked]:ring-teal-500/20">
+                            <input type="radio" name="overlay_style" value="bottom_gradient_strong" {{ old('overlay_style', $banner->overlay_style) == 'bottom_gradient_strong' ? 'checked' : '' }} class="sr-only">
+                            <div class="h-10 w-full rounded-lg bg-gradient-to-t from-slate-950 via-slate-900/65 to-transparent mb-2 flex items-end justify-center pb-1 text-white text-[9px] font-bold shadow-inner">Fuerte (95%)</div>
+                            <span class="text-xs font-bold text-slate-800">Grad. Fuerte</span>
+                            <span class="text-[10px] text-slate-400">Alto contraste</span>
+                        </label>
+
+                        <!-- 5. Gradiente Lateral -->
                         <label class="relative flex flex-col p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white cursor-pointer transition text-center group has-[:checked]:border-teal-500 has-[:checked]:bg-teal-50/40 has-[:checked]:ring-2 has-[:checked]:ring-teal-500/20">
                             <input type="radio" name="overlay_style" value="left_gradient" {{ old('overlay_style', $banner->overlay_style) == 'left_gradient' ? 'checked' : '' }} class="sr-only">
                             <div class="h-10 w-full rounded-lg bg-gradient-to-r from-slate-900 via-slate-900/60 to-transparent mb-2 flex items-center justify-start pl-2 text-white text-[9px] font-bold shadow-inner">Texto Izq</div>
@@ -117,7 +133,7 @@
                             <span class="text-[10px] text-slate-400">Protege texto a la izq.</span>
                         </label>
 
-                        <!-- 4. Glassmorphism -->
+                        <!-- 6. Glassmorphism -->
                         <label class="relative flex flex-col p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white cursor-pointer transition text-center group has-[:checked]:border-teal-500 has-[:checked]:bg-teal-50/40 has-[:checked]:ring-2 has-[:checked]:ring-teal-500/20">
                             <input type="radio" name="overlay_style" value="glass_card" {{ old('overlay_style', $banner->overlay_style) == 'glass_card' ? 'checked' : '' }} class="sr-only">
                             <div class="h-10 w-full rounded-lg bg-sky-500/30 backdrop-blur-sm border border-white/40 mb-2 flex items-center justify-center text-slate-900 text-[10px] font-bold shadow-inner">Efecto Vidrio</div>
@@ -125,7 +141,7 @@
                             <span class="text-[10px] text-slate-400">Texto en caja de cristal</span>
                         </label>
 
-                        <!-- 5. Sombra Completa -->
+                        <!-- 7. Sombra Completa -->
                         <label class="relative flex flex-col p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white cursor-pointer transition text-center group has-[:checked]:border-teal-500 has-[:checked]:bg-teal-50/40 has-[:checked]:ring-2 has-[:checked]:ring-teal-500/20">
                             <input type="radio" name="overlay_style" value="full_dark" {{ old('overlay_style', $banner->overlay_style) == 'full_dark' ? 'checked' : '' }} class="sr-only">
                             <div class="h-10 w-full rounded-lg bg-slate-900/70 mb-2 flex items-center justify-center text-white text-[10px] font-bold shadow-inner">Oscuro Total</div>
@@ -133,7 +149,7 @@
                             <span class="text-[10px] text-slate-400">Contraste clásico total</span>
                         </label>
 
-                        <!-- 6. Filtro de Marca -->
+                        <!-- 8. Filtro de Marca -->
                         <label class="relative flex flex-col p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white cursor-pointer transition text-center group has-[:checked]:border-teal-500 has-[:checked]:bg-teal-50/40 has-[:checked]:ring-2 has-[:checked]:ring-teal-500/20">
                             <input type="radio" name="overlay_style" value="brand_tint" {{ old('overlay_style', $banner->overlay_style) == 'brand_tint' ? 'checked' : '' }} class="sr-only">
                             <div class="h-10 w-full rounded-lg bg-gradient-to-br from-teal-500/70 to-slate-900/80 mb-2 flex items-center justify-center text-white text-[10px] font-bold shadow-inner">Color Marca</div>
